@@ -1,0 +1,21 @@
+TELAS:
+
+-> login;
+-> cadastro de usuario;
+-> recomendações;
+-> cadastro de livro;
+-> cadastro de autor;
+-> cadastro de editora;
+-> cadastro de genero;
+-> dashboard do usuario;
+
+FUNCIONALIDADES:
+
+-> busca de livro;
+-> status (se está retirado ou não)
+-> quantidade de livros disponiveis
+-> quantos pode retirar
+-> quantos ja retirou;
+-> quais retirou e quais estão ativos 
+
+
