@@ -8,6 +8,13 @@ export default {
     extend: {
       backgroundImage: {
         'library': "url('../../../public/img/bg2.jpg')"
+      },
+      colors:{
+        'creme': '#F7F4EB',
+        'azulzinho': '#A1CCD1',
+        'laranjinha': '#E9B384',
+        'verdinho':'#7C9D96',
+        'azulzinho-escuro': '#96ADAE'
       }
     },
     fontFamily:{

@@ -1,10 +1,9 @@
-import HomeLogin from "./components/home/home";
-
+import Header from "./components/header/header";
 function App() {
   return (
     <>
-      <div className="">
-        <HomeLogin />
+      <div>
+        <Header />
       </div>
     </>
   );
