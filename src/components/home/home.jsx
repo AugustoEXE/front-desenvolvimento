@@ -5,7 +5,9 @@ const HomeLogin = () => (
       <div className="text-center ">
         <form action="">
           <div className="mt-10">
-            <label htmlFor="" className="block text-left w-3/4 m-auto text-zinc-400 text-xl">Usuário:</label>
+            <label htmlFor="" className="block text-left w-3/4 m-auto text-zinc-400 text-xl">Usuário
+
+</label>
             <input type="text" className="w-3/4 rounded py-2 bg-zinc-300"/>
           </div>
           <div className="mt-10">
