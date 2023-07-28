@@ -4,10 +4,12 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 
 const Header = () => {
     
-    const isDesktop = useMediaQuery('(min-width: 640px)');
+    const size = useMediaQuery();
+
+    console.log(size)
 
 
-    const size = useMemo(() => isDesktop ? 58 : 45, [isDesktop])
+    //const size = useMemo(() => isDesktop ? 58 : 45, [isDesktop])
 
     return (
         <div>
@@ -30,5 +32,6 @@ const Header = () => {
         </div>
     );
 };
+
 
 export default Header;
