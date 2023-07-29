@@ -7,9 +7,9 @@ const useMediaQuery = () => {
     const [size, setSize] = useState(58)
 
     const iconSize = useMemo(() => {
-        if (size < 600) return 30
-        else if (size < 1200) return 58
-        else return 70
+        if (size < 600) return 25
+        else if (size < 1200) return 50
+        else return 50
     }, [size])
 
     useEffect(() => {

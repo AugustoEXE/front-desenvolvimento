@@ -4,6 +4,7 @@
 
 @layer base{
     body{
-        @apply bg-creme;
+        @apply bg-creminho;
+        @apply h-screen
     }
 }

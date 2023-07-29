@@ -10,11 +10,12 @@ export default {
         'library': "url('../../../public/img/bg2.jpg')"
       },
       colors:{
-        'creme': '#F7F4EB',
+        'creminho': '#F7F4EB',
         'azulzinho': '#A1CCD1',
         'laranjinha': '#E9B384',
         'verdinho':'#7C9D96',
-        'azulzinho-escuro': '#96ADAE'
+        'azulzinho-escurinho': '#96ADAE',
+        'verdinho-escurinho': '#5F8084'
       }
     },
     fontFamily:{
