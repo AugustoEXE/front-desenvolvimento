@@ -5,8 +5,8 @@ const Dashboard = () => {
   return (
     <div className="w-full">
       <Header />
-      <div className="w-1/3 m-auto text-center z-10 max-sm:w-11/12">
-        <div className=" xl:absolute bg-laranjinha p-6 rounded-lg right-[25%] top-28 grid grid-cols-2 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] max-sm:mt-5 ">
+      <div className="w-1/3 m-auto text-center z-10 max-md:w-11/12 max-lg:w-8/12">
+        <div className=" xl:absolute bg-laranjinha p-6 rounded-lg right-[25%] top-28 grid grid-cols-2 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] max-lg:mt-5 ">
           <div className="text-left">
             <div className="my-1">
               <div className="font-semibold">Nome: </div>

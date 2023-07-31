@@ -1,5 +1,5 @@
 import Header from "../components/global/Header";
-import Book from "../components/global/Book"
+import Book from "../components/global/Book";
 import { MagnifyingGlass, SlidersHorizontal } from "@phosphor-icons/react";
 const Home = () => {
   return (
@@ -13,7 +13,7 @@ const Home = () => {
         </p>
         <div className=" grid grid-cols-9 mt-4">
           <input className="col-start-3 col-span-4 h-9 bg-verdinho-escurinho rounded-l-full text-creminho placeholder:text-creminho placeholder:italic"
-            placeholder="Search"/>
+            placeholder="Search" />
           <span className="bg-verdinho-escurinho rounded-r-full text-creminho flex align-middle justify-end mr-3">
             <span className="m-auto">
               <MagnifyingGlass size={30} weight="light" />
@@ -25,11 +25,18 @@ const Home = () => {
         </div>
       </div>
       <div className="w-full flex justify-center mt-4">
-        <hr className="h-px bg-zinc-600 rounded-full w-9/12 border-0"/>
+        <hr className="h-px bg-zinc-600 rounded-full w-9/12 border-0" />
       </div>
 
-      <Book/>
-
+      <div className="w-full content-center">
+        <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 w-9/12">
+          <Book />
+          <Book />
+          <Book />
+          <Book />
+          <Book />
+        </div>
+      </div>
 
     </div>
   );
