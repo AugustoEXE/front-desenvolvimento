@@ -1,6 +1,6 @@
 import Header from "../components/global/Header";
-
 const Login = () => {
+
   return (
     <div>
       <Header />
