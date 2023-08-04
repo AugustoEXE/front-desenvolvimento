@@ -6,7 +6,7 @@ const Header = () => {
     
     const size = useMediaQuery();
 
-    console.log(size)
+    // console.log(size)
 
 
     //const size = useMemo(() => isDesktop ? 58 : 45, [isDesktop])

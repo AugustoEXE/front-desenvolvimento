@@ -1,13 +1,16 @@
 TELAS:
 
 -> login;
--> cadastro de usuario;
--> recomendações;
--> cadastro de livro;
+# -> cadastro de usuario;
+# -> recomendações;
+# -> cadastro de livro;
 -> cadastro de autor;
 -> cadastro de editora;
 -> cadastro de genero;
--> dashboard do usuario;
+# -> dashboard do usuario;
+-> mostrar livro
+-> tela de retirar livro
+
 
 FUNCIONALIDADES:
 
