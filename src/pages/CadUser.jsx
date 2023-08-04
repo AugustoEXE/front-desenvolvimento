@@ -10,13 +10,13 @@ const CadUser = () => {
         </div>
         <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-5 grid grid-cols-12 text-left ">
           <label className="text-creminho font-semibold col-span-12">Nome:</label>
-          <CustomInput includedClasses={"col-span-12 "} name={"name"} />
+          <CustomInput includedClasses={"rounded-full col-span-12 "} name={"name"} />
           <label className="text-creminho mt-5 font-semibold col-span-12">E-mail:</label>
-          <CustomInput includedClasses={"col-span-12 "} name={"author_id"} />
+          <CustomInput includedClasses={"rounded-full col-span-12 "} name={"author_id"} />
           <label className="text-creminho mt-5 font-semibold col-span-12">Senha:</label>
-          <CustomInput includedClasses={"col-span-12 "} name={"author_id"} />
+          <CustomInput includedClasses={"rounded-full col-span-12 "} name={"author_id"} />
           <label className="text-creminho mt-5 font-semibold col-span-12">Confrme a senha:</label>
-          <CustomInput includedClasses={"col-span-12 "} name={"author_id"} />
+          <CustomInput includedClasses={"rounded-full col-span-12 "} name={"author_id"} />
           <label className="text-creminho mt-5 font-semibold col-span-12">Admin:</label>
           <div className="col-span-12">
             <label className="relative inline-flex items-center cursor-pointer">
