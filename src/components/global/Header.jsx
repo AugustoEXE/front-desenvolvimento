@@ -3,10 +3,10 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    
+
     const size = useMediaQuery();
 
-    console.log(size)
+    // console.log(size)
 
 
     //const size = useMemo(() => isDesktop ? 58 : 45, [isDesktop])
