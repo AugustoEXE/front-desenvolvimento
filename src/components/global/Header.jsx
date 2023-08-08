@@ -13,7 +13,7 @@ const Header = () => {
 
     return (
         <div>
-            <div className="bg-verdinho w-screen h-16 grid grid-cols-3 text-white max-sm:h-20">
+            <div className="bg-verdinho w-full h-16 grid grid-cols-3 text-white max-sm:h-20">
                 <div className="flex flex-row justify- items-center ml-3">
                     <span>
                         <Link to={'/'}> 

@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./pages/home";
 import CadBook from "./pages/CadBook";
 import CadUser from "./pages/CadUser";
+import Book from "./pages/Book";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/cad-user",
     element: <CadUser />
+  },
+  {
+    path: "/book",
+    element: <Book />
   }
 ]);
 
