@@ -2,41 +2,24 @@ import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useState } from "react";
-import Modal from 'react-modal';
-
+import ModalBase from '../components/global/ModalBase'
 const CadBook = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
- 
-  
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+  console.log(modalIsOpen)
 
   return (
     <div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Example Modal"
-        style={customStyles}
-
-      >
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
-      </Modal>
+      <ModalBase open={modalIsOpen} isOpen={setIsOpen}>
+        <div className="">
+          <div className="flex justify-around text-2xl align-middle">
+            <input type="radio" name="genre_id" value='1' className="w-6 h-6 mt-1"/>
+            <p>1</p>
+            <p>Fulaninho</p>
+          </div>
+          
+        </div>
+      </ModalBase>
       <Header />
       <div className="w-1/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
         <div>
@@ -57,7 +40,7 @@ const CadBook = () => {
           <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
             <label className="text-creminho mt-5 col-span-12 font-semibold">Genero:</label>
             <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} name={"genre_id"} />
-            <button onClick={openModal} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
+            <button onClick={() => setIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
               <MagnifyingGlass size={25} weight="light" />
             </span>
             </button>
