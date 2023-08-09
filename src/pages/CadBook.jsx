@@ -2,8 +2,12 @@ import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { MagnifyingGlass, UploadSimple } from "@phosphor-icons/react";
 import { useState } from "react";
+
+import ModalBase from "../components/global/ModalBase";
+
 import ModalBase from '../components/global/ModalBase'
 import FileBase from 'react-file-base64';
+
 
 const CadBook = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -37,19 +41,52 @@ const CadBook = () => {
 
 
 
+  const [bookData, setBookData] = useState({
+    name: "",
+    description: "",
+    pages: 0,
+    release_date: new Date(),
+    language: 0,
+    author_id: 0,
+    genre_id: 0,
+    publish_company_id: 0,
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(bookData  );
+  };
+
+  const handleData = (event) => {
+    const { name, value } = event.target;
+
+    setBookData((originalData) => ({
+      ...originalData,
+      [name]: value,
+    }));
+  };
+
+  console.log(modalIsOpen);
+
+
   return (
     <div>
       <ModalBase open={modalIsOpen} isOpen={setIsOpen}>
         <div className="">
           <div className="flex justify-around text-2xl align-middle">
-            <input type="radio" name="genre_id" value='1' className="w-6 h-6 mt-1"/>
+            <input
+              type="radio"
+              name="genre_id"
+              value="1"
+              className="w-6 h-6 mt-1"
+            />
             <p>1</p>
             <p>Fulaninho</p>
           </div>
-          
         </div>
       </ModalBase>
       <Header />
+
       
         <div className="w-1/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           <div>
@@ -61,6 +98,7 @@ const CadBook = () => {
         <div className="w-1/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           {/*formulário*/}
           <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-3 grid grid-cols-12 text-left ">
+
 
             <label className="text-creminho font-semibold">Título:</label>
             <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={(e)=> {setform({...form, name: e.target.value})}}/>
