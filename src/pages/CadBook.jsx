@@ -2,16 +2,27 @@ import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { MagnifyingGlass, UploadSimple } from "@phosphor-icons/react";
 import { useState } from "react";
-
 import ModalBase from "../components/global/ModalBase";
+import GenreModal from "../components/cadBookModals/GenreModal"
+import AuthorModal from "../components/cadBookModals/AuthorModal"
 
-import ModalBase from '../components/global/ModalBase'
-import FileBase from 'react-file-base64';
 
 
 const CadBook = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [form, setform] = useState({});
+  const [modalGenreIsOpen, setGenreIsOpen] = useState(false);
+  const [modalAuthorIsOpen, setAuthorIsOpen] = useState(false);
+  const [bookData, setBookData] = useState({
+    name: "",
+    description: "",
+    pages: 0,
+    release_date: new Date(),
+    language: 0,
+    author_id: 0,
+    genre_id: 0,
+    publish_company_id: 0,
+    cover: ''
+  });
+
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -26,35 +37,13 @@ const CadBook = () => {
     });
   };
 
-  const log64 = async (e) =>{
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-
-    console.log(base64)
+  const handleImage = async (event) => {
+    setBookData({...bookData, cover: await convertToBase64(event.target.files[0])})
   }
 
 
-  const handleSubmmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
-
-
-
-  const [bookData, setBookData] = useState({
-    name: "",
-    description: "",
-    pages: 0,
-    release_date: new Date(),
-    language: 0,
-    author_id: 0,
-    genre_id: 0,
-    publish_company_id: 0,
-  });
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(bookData  );
   };
 
   const handleData = (event) => {
@@ -66,58 +55,52 @@ const CadBook = () => {
     }));
   };
 
-  console.log(modalIsOpen);
 
 
   return (
     <div>
-      <ModalBase open={modalIsOpen} isOpen={setIsOpen}>
-        <div className="">
-          <div className="flex justify-around text-2xl align-middle">
-            <input
-              type="radio"
-              name="genre_id"
-              value="1"
-              className="w-6 h-6 mt-1"
-            />
-            <p>1</p>
-            <p>Fulaninho</p>
-          </div>
-        </div>
-      </ModalBase>
+      <GenreModal open={modalGenreIsOpen} isOpen={setGenreIsOpen}/>
+      <AuthorModal open={modalAuthorIsOpen} isOpen={setAuthorIsOpen}/>
+      
       <Header />
 
       
-        <div className="w-1/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
+        <div className="w-2/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           <div>
             <h1 className="font-semibold text-4xl my-10 ">Cadastre seu Livro</h1>
           </div>
         </div> 
       
-      <form onSubmit={handleSubmmit}>
-        <div className="w-1/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
+      <form onSubmit={handleSubmit}>
+        <div className="w-1/2 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           {/*formulário*/}
           <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-3 grid grid-cols-12 text-left ">
 
 
             <label className="text-creminho font-semibold">Título:</label>
-            <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={(e)=> {setform({...form, name: e.target.value})}}/>
+            <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={handleData}/>
             
 
-            <label className="text-creminho mt-3 font-semibold">Autor:</label>
-            <CustomInput type={'number'} includedClasses={" rounded-full col-span-12"} name={"author_id"} change={(e)=> {setform({...form, author_id: e.target.value})}}/>
+            <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
+              <label className="text-creminho mt-3 col-span-12 font-semibold">Autor:</label>
+              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"author_id"} change={handleData}/>
+              <button onClick={() => setAuthorIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
+                <MagnifyingGlass size={25} weight="light" />
+              </span>
+              </button>
+            </div>
         
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12  font-semibold">Páginas:</label>
-              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'Number'} name={"pages"} change={(e)=> {setform({...form, pages: e.target.value})}} />
+              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'Number'} name={"pages"} change={handleData} />
             </div>
             
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Genero:</label>
-              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"genre_id"} change={(e)=> {setform({...form, genre_id: e.target.value})}}/>
-              <button onClick={() => setIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
+              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"genre_id"} change={handleData}/>
+              <button onClick={() => setGenreIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
                 <MagnifyingGlass size={25} weight="light" />
               </span>
               </button>
@@ -126,22 +109,22 @@ const CadBook = () => {
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12  font-semibold">Data de lançamento:</label>
-              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'date'} name={"release_date"} change={(e)=> {setform({...form, release_date: e.target.value})}}/>
+              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'date'} name={"release_date"} change={handleData}/>
             </div>
 
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Idioma:</label>
-              <CustomInput includedClasses={" rounded-full col-span-12 max-md:col-span-12"} name={"language"} change={(e)=> {setform({...form, language: e.target.value})}}/>
+              <CustomInput includedClasses={" rounded-full col-span-12 max-md:col-span-12"} name={"language"} change={handleData}/>
             </div>
 
 
             <label className="text-creminho font-semibold mt-3">Editora:</label>
-            <CustomInput includedClasses={" rounded-full col-span-12"} name={'publish_company_id'} type={'number'} change={(e)=> {setform({...form, publish_company_id: e.target.value})}} />
+            <CustomInput includedClasses={" rounded-full col-span-12"} name={'publish_company_id'} type={'number'} change={handleData} />
 
 
             <label className="text-creminho font-semibold mt-3">Sinopse:</label>
-            <textarea name="description" className="col-span-12 bg-verdinho-escurinho rounded-3xl text-creminho text-center p-1" onChange={(e)=> {setform({...form, description: e.target.value})}}></textarea>
+            <textarea name="description" className="col-span-12 bg-verdinho-escurinho rounded-3xl text-creminho text-center p-1" onChange={handleData}></textarea>
 
 
             <label className="text-creminho font-semibold mt-3">Capa:</label>
@@ -151,7 +134,7 @@ const CadBook = () => {
                   <UploadSimple size={64} weight="light" />
                   <p class="mb-2 text-sm "><span class="font-semibold bg-verdinho rounded-full p-1" >Arquivos</span></p>
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" onChange={log64} />
+                <input id="dropzone-file" type="file" name="cover" class="hidden" onChange={handleImage} />
 
               </label>
             </div>
