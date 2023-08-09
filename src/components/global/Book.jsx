@@ -3,29 +3,15 @@
 // TODO: tudo daqui, precisa do desenho
 import { React, useState, useEffect } from "react";
 import booksFromAPI from "../../services/books";
+import { useGet } from "../../hooks/useGet";
 
 const ListofBook = () => {
-  const [listBooks, setListBooks] = useState([]);
+  const listBooks = useGet(() => booksFromAPI.listBooks())
 
-  useEffect(() => {
-    let mounted = true;
-    const books = async () => {
-      const result = await booksFromAPI.listBooks();
-      if (mounted) {
-        setListBooks(result.data);
-      }
-    };
 
-    books();
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  console.log(listBooks);
   return listBooks.map((e) => {
     return (
-      <div className="flex flex-col">
+      <div key={e.id} className="flex flex-col">
         <img
           className="scale-75 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
           src={`data:image/png;base64, ${e.cover}`}
