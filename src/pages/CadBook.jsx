@@ -3,7 +3,6 @@ import CustomInput from "../components/global/CustomInput";
 import { MagnifyingGlass, UploadSimple } from "@phosphor-icons/react";
 import { useState } from "react";
 
-import ModalBase from "../components/global/ModalBase";
 
 import ModalBase from '../components/global/ModalBase'
 import FileBase from 'react-file-base64';
