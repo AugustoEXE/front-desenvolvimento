@@ -29,22 +29,21 @@ const Home = () => {
           <span>
             <SlidersHorizontal size={35} weight="light" />
           </span>
-        </span>
-        <span>
-          <SlidersHorizontal size={35} weight="light" />
-        </span>
+          <span>
+            <SlidersHorizontal size={35} weight="light" />
+          </span>
+        </div>
+      </div>
+      <div className="w-full flex justify-center mt-4">
+        <hr className="h-px bg-zinc-600 rounded-full w-9/12 border-0" />
+      </div>
+
+      <div className="w-full text-center flex content-center justify-center">
+        <div className="grid grid-rows-4  grid-cols-3 gap-20">
+          <ListofBook />
+        </div>
       </div>
     </div>
-    <div className="w-full flex justify-center mt-4">
-      <hr className="h-px bg-zinc-600 rounded-full w-9/12 border-0" />
-    </div>
-
-    <div className="w-full text-center flex content-center justify-center">
-      <div className="grid grid-rows-4  grid-cols-3 gap-20">
-        <ListofBook />
-      </div>
-    </div>
-  </div>
-);
-
+  );
+}
 export default Home
