@@ -1,7 +1,7 @@
 import { X } from "@phosphor-icons/react";
 import React from "react";
 
-export default function ModalBase ({children, open, isOpen}) {
+const ModalBase = ({children, open, isOpen, title}) => {
   return (
     <>
   
@@ -13,7 +13,7 @@ export default function ModalBase ({children, open, isOpen}) {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-verdinho rounded-t text-center align-middle">
                   <h3 className="flex text-3xl font-semibold text-center align-middle">
-                    Modal Title
+                    {title}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-creminho float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -53,3 +53,5 @@ export default function ModalBase ({children, open, isOpen}) {
     </>
   );
 }
+
+export default ModalBase;
