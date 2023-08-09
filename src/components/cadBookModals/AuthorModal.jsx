@@ -1,4 +1,8 @@
 import ModalBase from "../global/ModalBase";
+import { listAuthors } from "../../services/authors";
+import { useGet } from "../../hooks/useGet";
+
+const listAuthors = useGet(() => .listBooks())
 
 const AuthorModal = ({ open, isOpen }) => {
   return (
