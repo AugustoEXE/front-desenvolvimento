@@ -6,7 +6,7 @@ const CadUser = () => {
       <Header />
       <div className="w-1/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
         <div>
-          <h1 className="font-semibold text-2xl my-10 ">Cadastro de Usuário</h1>
+          <h1 className="font-semibold text-4xl my-10 ">Cadastro de Usuário</h1>
         </div>
         <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-5 grid grid-cols-12 text-left ">
           <label className="text-creminho font-semibold col-span-12">Nome:</label>
