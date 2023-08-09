@@ -1,3 +1,4 @@
+
 const CustomInput = ({
   includedClasses,
   type,
@@ -16,6 +17,7 @@ const CustomInput = ({
       className={`${includedClasses} bg-verdinho-escurinho  text-creminho text-center p-1`}
     />
   );
+
 };
 
 export default CustomInput;
