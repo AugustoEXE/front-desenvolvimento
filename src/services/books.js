@@ -2,11 +2,15 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL
 
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const listBooks = async (data) => {
   if (data) {
+
     return await axios.get(`${API_URL}/books`, { params: data });
   } else {
     return await axios.get(`${API_URL}/books`);
+
   }
 };
 
@@ -20,6 +24,7 @@ const updateBook = async (id, data) => {
 
 const createBook = async (data) => {
   return await axios.put(`${API_URL}/book`, { data: data });
+
 };
 
 export default { listBooks, deleteBook, updateBook, createBook };

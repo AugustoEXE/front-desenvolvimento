@@ -14,7 +14,7 @@ const ListofBook = () => {
       <div key={e.id} className="flex flex-col">
         <img
           className="scale-75 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
-          src={`data:image/png;base64, ${e.cover}`}
+          src={e.cover}
           loading="lazy"
           alt={""}
         />
