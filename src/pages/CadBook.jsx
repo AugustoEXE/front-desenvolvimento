@@ -144,13 +144,13 @@ const CadBook = () => {
 
 
             <label className="text-creminho font-semibold mt-3">Capa:</label>
-            <div class="flex items-center justify-center w-full col-span-12  text-creminho">
-              <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-28 rounded-3xl cursor-pointer bg-verdinho-escurinho  hover:bg-">
-                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <div className="flex items-center justify-center w-full col-span-12  text-creminho">
+              <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-28 rounded-3xl cursor-pointer bg-verdinho-escurinho  hover:bg-">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
                   <UploadSimple size={64} weight="light" />
-                  <p class="mb-2 text-sm "><span class="font-semibold bg-verdinho rounded-full p-1" >Arquivos</span></p>
+                  <p className="mb-2 text-sm "><span className="font-semibold bg-verdinho rounded-full p-1" >Arquivos</span></p>
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" onChange={log64} />
+                <input id="dropzone-file" type="file" className="hidden" onChange={log64} />
 
               </label>
             </div>
