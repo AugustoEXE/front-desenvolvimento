@@ -6,20 +6,28 @@ import { useState } from "react";
 // const listAuthors = useGet(() => .listBooks())
 
 const AuthorModal = ({ open, isOpen }) => {
+  const listBooks = useGet(() => listAuthors());
+
   return (
     <ModalBase open={open} isOpen={isOpen} title={"Autores"}>
-      <div className="">
-        <div className="flex justify-around text-2xl align-middle">
-          <input
-            type="radio"
-            name="genre_id"
-            value="1"
-            className="w-6 h-6 mt-1"
-          />
-          <p>1</p>
-          <p>baaaaaaaaah</p>
-        </div>
-      </div>
+      {listBooks.map((item, i) => {
+        return (
+          <div key={i} className="col-span-3 grid grid-cols-3">
+            <div className="">
+              <div className="flex justify-around text-2xl align-middle">
+                <input
+                  type="radio"
+                  name="genre_id"
+                  value={item.id}
+                  className="w-3 h-3 mt-1"
+                />
+              </div>
+            </div>
+            <div>{item.id}</div>
+            <div>{item.name}</div>
+          </div>
+        );
+      })}
     </ModalBase>
   );
 };

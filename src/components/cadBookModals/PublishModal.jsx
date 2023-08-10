@@ -3,6 +3,7 @@ import ModalBase from "../global/ModalBase";
 const PublishModal = ({ open, isOpen }) => {
   return (
     <ModalBase open={open} isOpen={isOpen} title={'Editoras'}>
+      
       <div className="">
         <div className="flex justify-around text-2xl align-middle">
           <input
