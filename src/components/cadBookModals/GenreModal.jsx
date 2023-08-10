@@ -12,15 +12,18 @@ const GenreModal = () => {
       <div className="">
         {list.map((e) => {
           return (
-            <div className="flex justify-between items-center text-2xl align-middle p-4">
+            <div
+              className="grid grid-cols-6 items-center text-2xl align-middle p-4"
+              key={e.id}
+            >
               <input
                 type="radio"
                 name={name}
-                value={e.id}
-                className="w-6 h-6 mt-1"
+                value={[e.id, e.name] }
+                className="w-6 h-6 mt-1 col-span-1"
                 onChange={change}
               />
-              <p>{e.name}</p>
+              <p className="col-span-5 text-end">{e.name}</p>
             </div>
           );
         })}

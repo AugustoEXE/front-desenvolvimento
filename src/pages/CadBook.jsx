@@ -6,6 +6,9 @@ import ModalBase from "../components/global/ModalBase";
 import GenreModal from "../components/cadBookModals/GenreModal";
 import AuthorModal from "../components/cadBookModals/AuthorModal";
 import { ModalProvider } from "../hooks/useModalValues";
+import { usePost } from "../hooks/usePost";
+import booksAPI from "../services/books";
+
 
 const CadBook = () => {
   const [modalGenreIsOpen, setGenreIsOpen] = useState(false);
@@ -44,8 +47,20 @@ const CadBook = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  };
 
+    setBookData({...bookData, genre_id: bookData.genre_id.slice(",")[0]})
+
+    
+    // console.log(bookData)
+    // release_date como null para testar o envio pro servidor/db
+    // FORMATAR DATA 
+    // booksAPI.createBook(bookData)
+    const teste = usePost(() => booksAPI.createBook({...bookData, release_date:null}))
+    // console.log(teste)
+  };
+  
+  console.log(bookData)
+  
   const handleData = (event) => {
     const { name, value } = event.target;
 
@@ -55,7 +70,8 @@ const CadBook = () => {
     }));
   };
 
-  console.log(bookData);
+  // console.log(bookData);
+
 
   return (
     <div>
@@ -65,6 +81,7 @@ const CadBook = () => {
           value: bookData.genre_id,
           type: "number",
           isOpen: modalGenreIsOpen,
+          title: "Generos",
           setOpen: setGenreIsOpen,
           change: handleData,
         }}
@@ -101,6 +118,7 @@ const CadBook = () => {
               includedClasses={" rounded-full col-span-12"}
               name={"name"}
               change={handleData}
+              
             />
 
             <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
@@ -146,9 +164,10 @@ const CadBook = () => {
                 includedClasses={
                   "col-span-10 max-md:col-span-12 rounded-l-full"
                 }
-                type={"Number"}
+                
                 name={"genre_id"}
                 change={handleData}
+                value={bookData.genre_id ? bookData.genre_id.split(",")[0] + ' - ' + bookData.genre_id.split(",")[1] :''  }
               />
               <button
                 onClick={() => setGenreIsOpen(true)}
