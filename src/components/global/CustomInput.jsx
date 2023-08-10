@@ -8,6 +8,7 @@ const CustomInput = ({
   placeholder,
   value,
   change,
+  disabled = false,
 }) => {
   //   const [mask, setMask] = useState("");
   return (
@@ -19,6 +20,7 @@ const CustomInput = ({
       value={value}
       className={`${includedClasses} bg-verdinho-escurinho  text-creminho text-center p-1 h-9`}
       onChange={change}
+      disabled={disabled}
     />
   );
 };
