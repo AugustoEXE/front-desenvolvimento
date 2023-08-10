@@ -1,10 +1,9 @@
 import { X } from "@phosphor-icons/react";
 import React from "react";
 
-const ModalBase = ({children, open, isOpen, title}) => {
+const ModalBase = ({ children, open, isOpen, title, clean, name, change }) => {
   return (
     <>
-  
       {open ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none text-center text-creminho">
@@ -19,27 +18,33 @@ const ModalBase = ({children, open, isOpen, title}) => {
                     className="p-1 ml-auto bg-transparent border-0 text-creminho float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => isOpen(false)}
                   >
-                    <span className="h-6 w-6 text-2xl block outline-none focus:outline-none align-middle text-creminho" >
-                    <X size={32} weight="light" />
-
+                    <span className="h-6 w-6 text-2xl block outline-none focus:outline-none align-middle text-creminho">
+                      <X size={32} weight="light" />
                     </span>
                   </button>
                 </div>
                 {/*content*/}
-                    <div>{children}</div>
+                <div>{children}</div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-verdinho rounded-b">
                   <button
+                    value=""
+                    name={name}
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => isOpen(false)}
+                    onClick={() => {
+                      change(...orinalData);
+                      isOpen(false);
+                    }}
                   >
                     Close
                   </button>
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => isOpen(false)}
+                    onClick={() => {
+                      isOpen(false);
+                    }}
                   >
                     Save Changes
                   </button>
@@ -52,6 +57,6 @@ const ModalBase = ({children, open, isOpen, title}) => {
       ) : null}
     </>
   );
-}
+};
 
 export default ModalBase;

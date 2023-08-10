@@ -1,12 +1,13 @@
 import ModalBase from "../global/ModalBase";
 import { listAuthors } from "../../services/authors";
 import { useGet } from "../../hooks/useGet";
+import { useState } from "react";
 
-const listAuthors = useGet(() => .listBooks())
+// const listAuthors = useGet(() => .listBooks())
 
 const AuthorModal = ({ open, isOpen }) => {
   return (
-    <ModalBase open={open} isOpen={isOpen} title={'Autores'}>
+    <ModalBase open={open} isOpen={isOpen} title={"Autores"}>
       <div className="">
         <div className="flex justify-around text-2xl align-middle">
           <input
@@ -23,4 +24,4 @@ const AuthorModal = ({ open, isOpen }) => {
   );
 };
 
-export default AuthorModal
+export default AuthorModal;

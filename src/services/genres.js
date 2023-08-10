@@ -1,6 +1,5 @@
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const listGenres = async (data) => {
   if (data) {
@@ -22,4 +21,4 @@ const createGenre = async (data) => {
   return await axios.put(`${API_URL}/genre`, { data: data });
 };
 
-export default { listGenres, deleteGenre, updateGenre, createGenre };
+export { listGenres, deleteGenre, updateGenre, createGenre };
