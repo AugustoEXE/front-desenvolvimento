@@ -1,16 +1,13 @@
 import ModalBase from "../global/ModalBase";
-import { listAuthors } from "../../services/authors";
+import { listPublisher } from "../../services/publisher";
 import { useGet } from "../../hooks/useGet";
-import { useState } from "react";
 import { useModalValues } from "../../hooks/useModalValues";
 
-// const listAuthors = useGet(() => .listBooks())
-
-const AuthorModal = () => {
-  const list = useGet(() => listAuthors());
+const PublishModal = () => {
+  const list = useGet(() => listPublisher());
   const { change, name } = useModalValues();
 
-  return (
+  return(
     <ModalBase>
       {list.map((item, i) => {
         return (
@@ -33,4 +30,4 @@ const AuthorModal = () => {
   );
 };
 
-export default AuthorModal;
+export default PublishModal;

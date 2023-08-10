@@ -2,14 +2,14 @@ import { X } from "@phosphor-icons/react";
 import React from "react";
 import { useModalValues } from "../../hooks/useModalValues";
 
-const ModalBase = ({ children, title }) => {
-  const { name, type, isOpen, setOpen, change} = useModalValues();
+const ModalBase = ({ children }) => {
+  const { name, type, isOpen, setOpen, change, title} = useModalValues();
   return (
     <>
       {isOpen ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none text-center text-creminho">
-            <div className="relative w-2/4 my-6 mx-auto max-w-3xl">
+            <div className="relative w-1/3 my-6 mx-auto max-w-3xl">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-verdinho-escurinho outline-none focus:outline-none text-center">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-verdinho rounded-t text-center align-middle">
@@ -30,25 +30,13 @@ const ModalBase = ({ children, title }) => {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-verdinho rounded-b">
                   <button
-                    value=""
-                    name={name}
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={(e) => {
-                      change(e);
-                      setOpen(false);
-                    }}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-laranjinha text-creminho font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => {
                       setOpen(false);
                     }}
                   >
-                    Save Changes
+                    Salvar
                   </button>
                 </div>
               </div>

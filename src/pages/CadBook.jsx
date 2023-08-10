@@ -5,11 +5,16 @@ import { createContext, useState } from "react";
 import ModalBase from "../components/global/ModalBase";
 import GenreModal from "../components/cadBookModals/GenreModal";
 import AuthorModal from "../components/cadBookModals/AuthorModal";
+import PublisherModal from "../components/cadBookModals/PublisherModal";
 import { ModalProvider } from "../hooks/useModalValues";
+import { usePost } from "../hooks/usePost";
+import booksAPI from "../services/books";
+
 
 const CadBook = () => {
   const [modalGenreIsOpen, setGenreIsOpen] = useState(false);
   const [modalAuthorIsOpen, setAuthorIsOpen] = useState(false);
+  const [modalPublisherIsOpen, setPublisherIsOpen] = useState(false);
   const [bookData, setBookData] = useState({
     name: "",
     description: "",
@@ -44,8 +49,25 @@ const CadBook = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  };
+    setBookData({
+      ...bookData,
+      genre_id: parseInt(bookData.genre_id[0]),
+      author_id: parseInt(bookData.author_id[0]),
+    });
 
+    // console.log(bookData)
+    // release_date como null para testar o envio pro servidor/db
+    // FORMATAR DATA
+    // booksAPI.createBook(bookData)
+    const Teste = usePost(() =>
+      booksAPI.createBook({ ...bookData, release_date: null })
+    );
+    // console.log(teste)
+  };
+  
+  console.log(bookData)
+
+  
   const handleData = (event) => {
     const { name, value } = event.target;
 
@@ -55,7 +77,8 @@ const CadBook = () => {
     }));
   };
 
-  console.log(bookData);
+  // console.log(bookData);
+
 
   return (
     <div>
@@ -65,6 +88,7 @@ const CadBook = () => {
           value: bookData.genre_id,
           type: "number",
           isOpen: modalGenreIsOpen,
+          title: "Generos",
           setOpen: setGenreIsOpen,
           change: handleData,
         }}
@@ -78,11 +102,26 @@ const CadBook = () => {
           value: bookData.author_id,
           type: "number",
           isOpen: modalAuthorIsOpen,
+          title: "Autores",
           setOpen: setAuthorIsOpen,
           change: handleData,
         }}
       >
         <AuthorModal />
+      </ModalProvider>
+
+      <ModalProvider
+        value={{
+          name: "publish_company_id",
+          value: bookData.publish_company_id,
+          type: "number",
+          isOpen: modalPublisherIsOpen,
+          title:"Editoras",
+          setOpen: setPublisherIsOpen,
+          change: handleData,
+        }}
+      >
+        <PublisherModal />
       </ModalProvider>
       <Header />
 
@@ -101,6 +140,7 @@ const CadBook = () => {
               includedClasses={" rounded-full col-span-12"}
               name={"name"}
               change={handleData}
+              
             />
 
             <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
@@ -111,11 +151,12 @@ const CadBook = () => {
                 includedClasses={
                   "col-span-10 max-md:col-span-12 rounded-l-full"
                 }
-                type={"Number"}
+                value={bookData.author_id ? bookData.author_id.split(",")[0] + ' - ' + bookData.author_id.split(",")[1] :'' }
                 name={"author_id"}
                 change={handleData}
               />
               <button
+              type="button"
                 onClick={() => setAuthorIsOpen(true)}
                 className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
               >
@@ -146,11 +187,14 @@ const CadBook = () => {
                 includedClasses={
                   "col-span-10 max-md:col-span-12 rounded-l-full"
                 }
-                type={"Number"}
+                
                 name={"genre_id"}
                 change={handleData}
+                value={bookData.genre_id ? bookData.genre_id.split(",")[0] + ' - ' + bookData.genre_id.split(",")[1] :''  }
+                disabled={true}
               />
               <button
+              type="button"
                 onClick={() => setGenreIsOpen(true)}
                 className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
               >
@@ -184,13 +228,29 @@ const CadBook = () => {
               />
             </div>
 
-            <label className="text-creminho font-semibold mt-3">Editora:</label>
-            <CustomInput
-              includedClasses={" rounded-full col-span-12"}
-              name={"publish_company_id"}
-              type={"number"}
-              change={handleData}
-            />
+            <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
+              <label className="text-creminho mt-3 col-span-12 font-semibold">
+                Editora:
+              </label>
+              <CustomInput
+                includedClasses={
+                  "col-span-10 max-md:col-span-12 rounded-l-full"
+                }
+                value={bookData.publish_company_id ? bookData.publish_company_id.split(",")[0] + ' - ' + bookData.publish_company_id.split(",")[1] :'' }
+                name={"publish_company_id"}
+                change={handleData}
+              />
+              <button
+              type="button"
+                onClick={() => setPublisherIsOpen(true)}
+                className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
+              >
+                {" "}
+                <span className="m-auto">
+                  <MagnifyingGlass size={25} weight="light" />
+                </span>
+              </button>
+            </div>
 
             <label className="text-creminho font-semibold mt-3">Sinopse:</label>
             <textarea
