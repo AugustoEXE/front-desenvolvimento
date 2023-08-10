@@ -2,17 +2,14 @@ import ModalBase from "../global/ModalBase";
 import { useGet } from "../../hooks/useGet";
 import { listGenres } from "../../services/genres";
 import { useState } from "react";
+import { useModalValues } from "../../hooks/useModalValues";
 
-const GenreModal = ({ open, isOpen, name, change, setGenreSelected }) => {
+const GenreModal = () => {
   const list = useGet(() => listGenres());
-
+  const { change, name } = useModalValues()
   return (
-    <ModalBase
-      open={open}
-      isOpen={isOpen}
-      title={"Generos"}
-      clean={setGenreSelected}
-    >
+
+    <ModalBase>
       <div className="">
         {list.map((e) => {
           return (
@@ -20,9 +17,9 @@ const GenreModal = ({ open, isOpen, name, change, setGenreSelected }) => {
               <input
                 type="radio"
                 name={name}
-                value={Number(e.id)}
+                value={e.id}
                 className="w-6 h-6 mt-1"
-                onChange={change}
+                onChange={(event)=>change(event.target)}
               />
               <p>{e.name}</p>
             </div>
