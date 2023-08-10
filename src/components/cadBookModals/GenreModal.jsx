@@ -6,20 +6,19 @@ import { useModalValues } from "../../hooks/useModalValues";
 
 const GenreModal = () => {
   const list = useGet(() => listGenres());
-  const { change, name } = useModalValues()
+  const { change, name } = useModalValues();
   return (
-
     <ModalBase>
       <div className="">
         {list.map((e) => {
           return (
-            <div className="flex justify-around align text-2xl align-middle">
+            <div className="flex justify-between items-center text-2xl align-middle p-4">
               <input
                 type="radio"
                 name={name}
                 value={e.id}
                 className="w-6 h-6 mt-1"
-                onChange={(event)=>change(event.target)}
+                onChange={change}
               />
               <p>{e.name}</p>
             </div>

@@ -2,8 +2,8 @@ import { X } from "@phosphor-icons/react";
 import React from "react";
 import { useModalValues } from "../../hooks/useModalValues";
 
-const ModalBase = ({ children, title, }) => {
-  const { name,type, isOpen, setOpen, change } = useModalValues()
+const ModalBase = ({ children, title }) => {
+  const { name, type, isOpen, setOpen, change} = useModalValues();
   return (
     <>
       {isOpen ? (
@@ -35,7 +35,7 @@ const ModalBase = ({ children, title, }) => {
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={(e) => {
-                      change(e.target);
+                      change(e);
                       setOpen(false);
                     }}
                   >
