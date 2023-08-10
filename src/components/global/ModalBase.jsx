@@ -1,7 +1,7 @@
 import { X } from "@phosphor-icons/react";
 import React from "react";
 
-const ModalBase = ({ children, open, isOpen, title }) => {
+const ModalBase = ({ children, open, isOpen, title, clean, name, change }) => {
   return (
     <>
       {open ? (
@@ -24,34 +24,27 @@ const ModalBase = ({ children, open, isOpen, title }) => {
                   </button>
                 </div>
                 {/*content*/}
-                <div className="grid grid-cols-3">
-                  <div>
-                    {" "}
-                    <input
-                      type="radio"
-                      name="genre_id"
-                      value="1"
-                      className="w-3 h-3 mt-1 disabled:bg-gray-600"
-                      disabled
-                    />
-                  </div>
-                  <div>#</div>
-                  <div>Nome</div>
-                  {children}
-                </div>
+                <div>{children}</div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-verdinho rounded-b">
                   <button
+                    value=""
+                    name={name}
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => isOpen(false)}
+                    onClick={() => {
+                      change(...orinalData);
+                      isOpen(false);
+                    }}
                   >
                     Close
                   </button>
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => isOpen(false)}
+                    onClick={() => {
+                      isOpen(false);
+                    }}
                   >
                     Save Changes
                   </button>

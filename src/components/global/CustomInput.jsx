@@ -1,5 +1,5 @@
-import InputMask from 'react-input-mask';
-import { useState } from 'react';
+// import InputMask from "react-input-mask";
+import { useState } from "react";
 const CustomInput = ({
   includedClasses,
   type,
@@ -8,15 +8,10 @@ const CustomInput = ({
   placeholder,
   value,
   change,
-  Mask
 }) => {
-
-  const [mask, setMask] = useState('')
-
-
-
+  //   const [mask, setMask] = useState("");
   return (
-    <InputMask
+    <input
       type={type}
       name={name}
       id={id}
@@ -26,7 +21,6 @@ const CustomInput = ({
       onChange={change}
     />
   );
-
 };
 
 export default CustomInput;
