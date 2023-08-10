@@ -1,11 +1,11 @@
 import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { MagnifyingGlass, UploadSimple } from "@phosphor-icons/react";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import ModalBase from "../components/global/ModalBase";
 import GenreModal from "../components/cadBookModals/GenreModal"
 import AuthorModal from "../components/cadBookModals/AuthorModal"
-
+import { ModalProvider } from "../hooks/useModalValues";
 
 
 
@@ -38,7 +38,7 @@ const CadBook = () => {
   };
 
   const handleImage = async (event) => {
-    setBookData({...bookData, cover: await convertToBase64(event.target.files[0])})
+    setBookData({ ...bookData, cover: await convertToBase64(event.target.files[0]) })
   }
 
 
@@ -47,55 +47,73 @@ const CadBook = () => {
   };
 
   const handleData = (event) => {
-    const { name, value } = event.target;
+    useDataChange(event.target)
 
+  };
+
+  const useDataChange = ({name,value}) => {
+
+    // console.log('newValue:'+value)
     setBookData((originalData) => ({
       ...originalData,
-      [name]: type === "number" ? Number(value) : value,
+      [name]: value,
     }));
-  };
+
+  }
 
   return (
     <div>
-      <GenreModal open={modalGenreIsOpen} isOpen={setGenreIsOpen}/>
-      <AuthorModal open={modalAuthorIsOpen} isOpen={setAuthorIsOpen}/>
+
+      <ModalProvider value={{
+        name: 'genre_id',
+        value: bookData.genre_id,
+        type:'number',
+        isOpen: modalGenreIsOpen,
+        setOpen:setGenreIsOpen,
+        change: useDataChange,
+
+      }}>
+        <GenreModal />
+      </ModalProvider>
       
+      <AuthorModal open={modalAuthorIsOpen} isOpen={setAuthorIsOpen} />
+
       <Header />
 
-      
-        <div className="w-2/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
-          <div>
-            <h1 className="font-semibold text-4xl my-10 ">Cadastre seu Livro</h1>
-          </div>
-        </div> 
-      
+
+      <div className="w-2/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
+        <div>
+          <h1 className="font-semibold text-4xl my-10 ">Cadastre seu Livro</h1>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div className="w-1/2 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           {/*formulário*/}
           <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-3 grid grid-cols-12 text-left ">
             <label className="text-creminho font-semibold">Título:</label>
-            <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={handleData}/>
-            
+            <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={handleData} />
+
 
             <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Autor:</label>
-              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"author_id"} change={handleData}/>
+              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"author_id"} change={handleData} />
               <button onClick={() => setAuthorIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
                 <MagnifyingGlass size={25} weight="light" />
               </span>
               </button>
             </div>
-        
+
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12  font-semibold">Páginas:</label>
               <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'Number'} name={"pages"} change={handleData} />
             </div>
-            
+
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Genero:</label>
-              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"genre_id"} change={handleData}/>
+              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"genre_id"} change={handleData} />
               <button onClick={() => setGenreIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
                 <MagnifyingGlass size={25} weight="light" />
               </span>
@@ -104,12 +122,12 @@ const CadBook = () => {
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12  font-semibold">Data de lançamento:</label>
-              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'date'} name={"release_date"} change={handleData}/>
+              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'date'} name={"release_date"} change={handleData} />
             </div>
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Idioma:</label>
-              <CustomInput includedClasses={" rounded-full col-span-12 max-md:col-span-12"} name={"language"} change={handleData}/>
+              <CustomInput includedClasses={" rounded-full col-span-12 max-md:col-span-12"} name={"language"} change={handleData} />
             </div>
 
             <label className="text-creminho font-semibold mt-3">Editora:</label>
@@ -145,7 +163,7 @@ const CadBook = () => {
                 />
               </label>
             </div>
-            
+
 
 
             <button className="col-start-4 col-span-6 bg-laranjinha rounded-full py-1 font-semibold mt-10">Cadastrar livro</button>
