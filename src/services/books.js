@@ -19,11 +19,11 @@ const deleteBook = async (id) => {
 };
 
 const updateBook = async (id, data) => {
-  return await axios.put(`${API_URL}/book/${id}`, { data: data });
+  return await axios.put(`${API_URL}/book/${id}`, { data });
 };
 
 const createBook = async (data) => {
-  return await axios.put(`${API_URL}/book`, { data: data });
+  return await axios.post(`${API_URL}/book`, { data });
 
 };
 

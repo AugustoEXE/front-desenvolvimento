@@ -5,8 +5,9 @@ import { useState } from "react";
 import ModalBase from "../components/global/ModalBase";
 import GenreModal from "../components/cadBookModals/GenreModal"
 import AuthorModal from "../components/cadBookModals/AuthorModal"
-
-
+import { usePost } from "../hooks/usePost";
+import booksAPI from "../services/books"
+import { release } from "os";
 
 
 const CadBook = () => {
@@ -39,20 +40,26 @@ const CadBook = () => {
   };
 
   const handleImage = async (event) => {
-    setBookData({...bookData, cover: await convertToBase64(event.target.files[0])})
+    setBookData({ ...bookData, cover: await convertToBase64(event.target.files[0]) })
   }
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    console.log(bookData)
+    // release_date como null para testar o envio pro servidor/db
+    // FORMATAR DATA 
+    // booksAPI.createBook(bookData)
+    const teste = usePost(() => booksAPI.createBook({...bookData, release_date:null}))
+    console.log(teste)
   };
 
   const handleData = (event) => {
-    const { name, value } = event.target;
-
+    const { name, value, type } = event.target;
     setBookData((originalData) => ({
       ...originalData,
-      [name]: value,
+      [name]: type === "number" ? Number(value) : value,
     }));
   };
 
@@ -60,18 +67,18 @@ const CadBook = () => {
 
   return (
     <div>
-      <GenreModal open={modalGenreIsOpen} isOpen={setGenreIsOpen}/>
-      <AuthorModal open={modalAuthorIsOpen} isOpen={setAuthorIsOpen}/>
-      
+      <GenreModal open={modalGenreIsOpen} isOpen={setGenreIsOpen} />
+      <AuthorModal open={modalAuthorIsOpen} isOpen={setAuthorIsOpen} />
+
       <Header />
 
-      
-        <div className="w-2/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
-          <div>
-            <h1 className="font-semibold text-4xl my-10 ">Cadastre seu Livro</h1>
-          </div>
-        </div> 
-      
+
+      <div className="w-2/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
+        <div>
+          <h1 className="font-semibold text-4xl my-10 ">Cadastre seu Livro</h1>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div className="w-1/2 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           {/*formulário*/}
@@ -79,28 +86,28 @@ const CadBook = () => {
 
 
             <label className="text-creminho font-semibold">Título:</label>
-            <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={handleData}/>
-            
+            <CustomInput includedClasses={" rounded-full col-span-12"} name={"name"} change={handleData} />
+
 
             <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Autor:</label>
-              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"author_id"} change={handleData}/>
+              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'number'} name={"author_id"} change={handleData} value={bookData.author_id} />
               <button onClick={() => setAuthorIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
                 <MagnifyingGlass size={25} weight="light" />
               </span>
               </button>
             </div>
-        
+
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12  font-semibold">Páginas:</label>
-              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'Number'} name={"pages"} change={handleData} />
+              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'number'} name={"pages"} change={handleData} value={bookData.pages} />
             </div>
-            
+
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Genero:</label>
-              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'Number'} name={"genre_id"} change={handleData}/>
+              <CustomInput includedClasses={"col-span-10 max-md:col-span-12 rounded-l-full"} type={'number'} name={"genre_id"} change={handleData} value={bookData.genre} />
               <button onClick={() => setGenreIsOpen(true)} className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"> <span className="m-auto">
                 <MagnifyingGlass size={25} weight="light" />
               </span>
@@ -110,18 +117,18 @@ const CadBook = () => {
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12  font-semibold">Data de lançamento:</label>
-              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'date'} name={"release_date"} change={handleData}/>
+              <CustomInput includedClasses={" rounded-full col-span-11 max-md:col-span-12"} type={'date'} name={"release_date"} change={handleData} value={bookData.release_date} />
             </div>
 
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
               <label className="text-creminho mt-3 col-span-12 font-semibold">Idioma:</label>
-              <CustomInput includedClasses={" rounded-full col-span-12 max-md:col-span-12"} name={"language"} change={handleData}/>
+              <CustomInput includedClasses={" rounded-full col-span-12 max-md:col-span-12"}  name={"language"} change={handleData} value={bookData.language} />
             </div>
 
 
             <label className="text-creminho font-semibold mt-3">Editora:</label>
-            <CustomInput includedClasses={" rounded-full col-span-12"} name={'publish_company_id'} type={'number'} change={handleData} />
+            <CustomInput includedClasses={" rounded-full col-span-12"} name={'publish_company_id'} type={'number'} change={handleData} value={bookData.publish_company_id} />
 
 
             <label className="text-creminho font-semibold mt-3">Sinopse:</label>
@@ -138,7 +145,7 @@ const CadBook = () => {
                 <input id="dropzone-file" type="file" name="cover" className="hidden" onChange={handleImage} />
               </label>
             </div>
-            
+
 
 
             <button className="col-start-4 col-span-6 bg-laranjinha rounded-full py-1 font-semibold mt-10">Cadastrar livro</button>
