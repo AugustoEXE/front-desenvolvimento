@@ -6,7 +6,7 @@ const listPublisher = async () => {
 };
 
 const createPublisher = async (data) => {
-  return await axios.post(`${VITE_API_URL}/publish-company`, { params: data });
+  return await axios.post(`${VITE_API_URL}/publish-company`, data );
 };
 
 const updatePublisher = async (data, id) => {

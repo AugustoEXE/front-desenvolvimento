@@ -18,7 +18,7 @@ const updateGenre = async (id, data) => {
 };
 
 const createGenre = async (data) => {
-  return await axios.put(`${API_URL}/genre`, { data: data });
+  return await axios.post(`${API_URL}/genre`, data );
 };
 
 export { listGenres, deleteGenre, updateGenre, createGenre };
