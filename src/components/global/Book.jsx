@@ -4,6 +4,7 @@
 import { React, useState, useEffect } from "react";
 import booksFromAPI from "../../services/books";
 import { useGet } from "../../hooks/useGet";
+import { Link } from "react-router-dom";
 
 const ListofBook = () => {
   let listBooks = useGet(() => booksFromAPI.listBooks())
@@ -26,9 +27,11 @@ const ListofBook = () => {
         />
         <p className="text-center font-bold text-2xl ">{e.name}</p>
         <p className="italic mt-2">{e.author.name}</p>
-        <button className="col-start-2 col-span-6 bg-laranjinha rounded-full py-1 font-semibold mt-10">
-          Retirar
-        </button>
+        <Link to={`/book/${e.id}`} className="col-start-2 col-span-6 bg-laranjinha rounded-full py-1 font-semibold mt-10">
+          <button className="">
+            Retirar
+          </button>
+        </Link>
       </div>
     );
   });
