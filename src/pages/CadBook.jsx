@@ -18,7 +18,7 @@ const CadBook = () => {
     description: "",
     pages: 0,
     release_date: new Date(),
-    language: 0,
+    language: "",
     author_id: 0,
     genre_id: 0,
     publish_company_id: 0,
@@ -163,6 +163,7 @@ const CadBook = () => {
                 }
                 name={"author_id"}
                 change={handleData}
+                disabled={true}
               />
               <button
                 type="button"
@@ -184,7 +185,7 @@ const CadBook = () => {
                 includedClasses={" rounded-full col-span-11 max-md:col-span-12"}
                 type={"Number"}
                 name={"pages"}
-                value={bookData.pages}
+                value={bookData.pages == 0 ? '': bookData.pages}
                 change={handleData}
               />
             </div>
@@ -254,6 +255,7 @@ const CadBook = () => {
                 }
                 name={"publish_company_id"}
                 change={handleData}
+                disabled={true}
               />
               <button
                 type="button"

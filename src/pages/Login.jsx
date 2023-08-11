@@ -24,7 +24,7 @@ const Login = () => {
     event.preventDefault();
     console.log(userData);
     sendLoginData({ ...userData })
-      .then(setAuth(true), navigate("/user"))
+      .then(() => setAuth(true), navigate("/user"))
       .catch((err) => console.error(err));
   };
 
