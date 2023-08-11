@@ -6,15 +6,21 @@ import booksFromAPI from "../../services/books";
 import { useGet } from "../../hooks/useGet";
 
 const ListofBook = () => {
-  const listBooks = useGet(() => booksFromAPI.listBooks())
+  let listBooks = useGet(() => booksFromAPI.listBooks())
+
 
 
   return listBooks.map((e) => {
+    
+     
+
+  
+    // console.log(reader.readAsText(e.cover))
     return (
-      <div key={e.id} className="flex flex-col">
+      <div key={e.id} className="flex flex-col  w-60 h-full">
         <img
-          className="scale-75 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
-          src={e.cover}
+          className="w-fit h-max shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] my-auto"
+          src={new Uint8Array(e.cover?.data).reduce((str, byte) => str + String.fromCharCode(byte), '')}
           loading="lazy"
           alt={""}
         />
