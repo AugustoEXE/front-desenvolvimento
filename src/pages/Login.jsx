@@ -1,8 +1,10 @@
-import {useState} from "react"
+import { useState } from "react";
+import { useToken } from "../components/global/AuthProvider";
 import { sendLoginData } from "../services/login";
 
-const Login = () => {
+const { setToken } = useToken();
 
+const Login = () => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -19,24 +21,22 @@ const Login = () => {
 
   const HandleSubmit = (event) => {
     event.preventDefault();
-    console.log(userData)
+    console.log(userData);
 
     const test = async () => {
       try {
         const resp = await sendLoginData({ ...userData });
-        console.warn(resp)
+        console.warn(resp);
+        setToken({ isAuth: true });
       } catch (e) {
         console.error(e);
       }
     };
 
-    const test2 = test()
+    const test2 = test();
 
-    console.info(test2)
-  }
-
-
-
+    console.info(test2);
+  };
 
   return (
     <>
@@ -77,7 +77,7 @@ const Login = () => {
                   onChange={handleData}
                 />
               </div>
-              
+
               <div className="mt-10">
                 <button className="rounded-full bg-laranjinha hover:bg-laranjinha-escurinho text-white w-4/6 py-2 ">
                   Login

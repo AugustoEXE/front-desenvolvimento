@@ -7,7 +7,7 @@ const PublishModal = () => {
   const list = useGet(() => listPublisher());
   const { change, name } = useModalValues();
 
-  return(
+  return (
     <ModalBase>
       {list.map((item, i) => {
         return (

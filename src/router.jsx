@@ -21,33 +21,32 @@ const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <Dashboard />
+    element: <Dashboard />,
   },
   {
     path: "/cad-book",
-    element: <CadBook />
+    element: <CadBook />,
   },
   {
     path: "/cad-user",
-    element: <CadUser />
+    element: <CadUser />,
   },
   {
     path: "/book",
-    element: <Book />
+    element: <Book />,
   },
   {
     path: "/cad-author",
-    element: <CadAuthor />
+    element: <CadAuthor />,
   },
   {
     path: "/cad-genre",
-    element: <CadGenre />
+    element: <CadGenre />,
   },
   {
     path: "/cad-publish-company",
-    element: <CadPublish />
+    element: <CadPublish />,
   },
-
 ]);
 
 export default router;

@@ -23,6 +23,7 @@ const CadBook = () => {
     genre_id: 0,
     publish_company_id: 0,
     cover: "",
+    secName: "",
   });
 
   const convertToBase64 = (file) => {
@@ -49,9 +50,9 @@ const CadBook = () => {
     event.preventDefault();
     setBookData({
       ...bookData,
-      genre_id: bookData.genre_id[0],
-      author_id: bookData.author_id[0],
-      publish_company_id: bookData.publish_company_id[0],
+      genre_id: bookData.genre_id.split(",")[0],
+      author_id: bookData.author_id.split(",")[0],
+      publish_company_id: bookData.publish_company_id.split(",")[0],
     });
 
     // console.log(bookData)
@@ -67,9 +68,9 @@ const CadBook = () => {
       }
     };
 
-    const test2 = test()
+    const test2 = test();
 
-    console.info(test2)
+    console.info(test2);
   };
 
   console.log(bookData);
@@ -80,6 +81,7 @@ const CadBook = () => {
     setBookData((originalData) => ({
       ...originalData,
       [name]: value,
+      
     }));
   };
 
