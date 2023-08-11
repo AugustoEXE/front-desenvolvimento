@@ -61,7 +61,7 @@ const CadBook = () => {
 
     const test = async () => {
       try {
-        await booksAPI.createBook({ ...bookData, release_date: null });
+        await booksAPI.createBook({ ...bookData });
       } catch (e) {
         console.error(e);
       }
@@ -291,7 +291,6 @@ const CadBook = () => {
                   type="file"
                   name="cover"
                   className="hidden"
-                  value={bookData.cover}
                   onChange={handleImage}
                 />
               </label>
