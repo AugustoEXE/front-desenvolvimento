@@ -1,15 +1,13 @@
 import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { MagnifyingGlass, UploadSimple } from "@phosphor-icons/react";
-import { createContext, useState } from "react";
-import ModalBase from "../components/global/ModalBase";
+import { useState } from "react";
 import GenreModal from "../components/cadBookModals/GenreModal";
 import AuthorModal from "../components/cadBookModals/AuthorModal";
 import PublisherModal from "../components/cadBookModals/PublisherModal";
 import { ModalProvider } from "../hooks/useModalValues";
 import { usePost } from "../hooks/usePost";
 import booksAPI from "../services/books";
-
 
 const CadBook = () => {
   const [modalGenreIsOpen, setGenreIsOpen] = useState(false);
@@ -47,27 +45,35 @@ const CadBook = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const HandleSubmit = (event) => {
     event.preventDefault();
     setBookData({
       ...bookData,
-      genre_id: parseInt(bookData.genre_id[0]),
-      author_id: parseInt(bookData.author_id[0]),
+      genre_id: bookData.genre_id[0],
+      author_id: bookData.author_id[0],
+      publish_company_id: bookData.publish_company_id[0],
     });
 
     // console.log(bookData)
     // release_date como null para testar o envio pro servidor/db
     // FORMATAR DATA
     // booksAPI.createBook(bookData)
-    const Teste = usePost(() =>
-      booksAPI.createBook({ ...bookData, release_date: null })
-    );
-    // console.log(teste)
-  };
-  
-  console.log(bookData)
 
-  
+    const test = async () => {
+      try {
+        await booksAPI.createBook({ ...bookData, release_date: null });
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const test2 = test()
+
+    console.info(test2)
+  };
+
+  console.log(bookData);
+
   const handleData = (event) => {
     const { name, value } = event.target;
 
@@ -78,7 +84,6 @@ const CadBook = () => {
   };
 
   // console.log(bookData);
-
 
   return (
     <div>
@@ -116,7 +121,7 @@ const CadBook = () => {
           value: bookData.publish_company_id,
           type: "number",
           isOpen: modalPublisherIsOpen,
-          title:"Editoras",
+          title: "Editoras",
           setOpen: setPublisherIsOpen,
           change: handleData,
         }}
@@ -131,7 +136,7 @@ const CadBook = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={HandleSubmit}>
         <div className="w-1/2 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
           {/*formulário*/}
           <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-3 grid grid-cols-12 text-left ">
@@ -139,8 +144,8 @@ const CadBook = () => {
             <CustomInput
               includedClasses={" rounded-full col-span-12"}
               name={"name"}
+              value={bookData.name}
               change={handleData}
-              
             />
 
             <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
@@ -151,12 +156,14 @@ const CadBook = () => {
                 includedClasses={
                   "col-span-10 max-md:col-span-12 rounded-l-full"
                 }
-                value={bookData.author_id ? bookData.author_id.split(",")[0] + ' - ' + bookData.author_id.split(",")[1] :'' }
+                value={
+                  bookData.author_id ? bookData.author_id.split(",")[1] : ""
+                }
                 name={"author_id"}
                 change={handleData}
               />
               <button
-              type="button"
+                type="button"
                 onClick={() => setAuthorIsOpen(true)}
                 className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
               >
@@ -175,6 +182,7 @@ const CadBook = () => {
                 includedClasses={" rounded-full col-span-11 max-md:col-span-12"}
                 type={"Number"}
                 name={"pages"}
+                value={bookData.pages}
                 change={handleData}
               />
             </div>
@@ -187,14 +195,13 @@ const CadBook = () => {
                 includedClasses={
                   "col-span-10 max-md:col-span-12 rounded-l-full"
                 }
-                
                 name={"genre_id"}
                 change={handleData}
-                value={bookData.genre_id ? bookData.genre_id.split(",")[0] + ' - ' + bookData.genre_id.split(",")[1] :''  }
+                value={bookData.genre_id ? bookData.genre_id.split(",")[1] : ""}
                 disabled={true}
               />
               <button
-              type="button"
+                type="button"
                 onClick={() => setGenreIsOpen(true)}
                 className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
               >
@@ -213,6 +220,7 @@ const CadBook = () => {
                 includedClasses={" rounded-full col-span-11 max-md:col-span-12"}
                 type={"date"}
                 name={"release_date"}
+                value={bookData.date}
                 change={handleData}
               />
             </div>
@@ -224,6 +232,7 @@ const CadBook = () => {
               <CustomInput
                 includedClasses={" rounded-full col-span-12 max-md:col-span-12"}
                 name={"language"}
+                value={bookData.language}
                 change={handleData}
               />
             </div>
@@ -236,12 +245,16 @@ const CadBook = () => {
                 includedClasses={
                   "col-span-10 max-md:col-span-12 rounded-l-full"
                 }
-                value={bookData.publish_company_id ? bookData.publish_company_id.split(",")[0] + ' - ' + bookData.publish_company_id.split(",")[1] :'' }
+                value={
+                  bookData.publish_company_id
+                    ? bookData.publish_company_id.split(",")[1]
+                    : ""
+                }
                 name={"publish_company_id"}
                 change={handleData}
               />
               <button
-              type="button"
+                type="button"
                 onClick={() => setPublisherIsOpen(true)}
                 className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
               >
@@ -278,6 +291,7 @@ const CadBook = () => {
                   type="file"
                   name="cover"
                   className="hidden"
+                  value={bookData.cover}
                   onChange={handleImage}
                 />
               </label>

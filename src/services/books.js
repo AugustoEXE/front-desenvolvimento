@@ -23,6 +23,7 @@ const updateBook = async (id, data) => {
 };
 
 const createBook = async (data) => {
+  console.warn(data)
   return await axios.post(`${API_URL}/book`, { data });
 
 };
