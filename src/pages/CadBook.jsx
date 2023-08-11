@@ -18,7 +18,7 @@ const CadBook = () => {
     description: "",
     pages: 0,
     release_date: new Date(),
-    language: "",
+    language: 0,
     author_id: 0,
     genre_id: 0,
     publish_company_id: 0,
@@ -49,9 +49,6 @@ const CadBook = () => {
     event.preventDefault();
     setBookData({
       ...bookData,
-      genre_id: bookData.genre_id[0],
-      author_id: bookData.author_id[0],
-      publish_company_id: bookData.publish_company_id[0],
     });
 
     // console.log(bookData)
@@ -67,16 +64,16 @@ const CadBook = () => {
       }
     };
 
-    const test2 = test()
+    const test2 = test();
 
-    console.info(test2)
+    console.info(test2);
   };
 
   console.log(bookData);
 
   const handleData = (event) => {
     const { name, value } = event.target;
-
+    console.log();
     setBookData((originalData) => ({
       ...originalData,
       [name]: value,
@@ -86,8 +83,8 @@ const CadBook = () => {
   // console.log(bookData);
 
   return (
-    <div>
-      <ModalProvider
+    <div className=" flex-col items-center justify-center">
+      {/* <ModalProvider
         value={{
           name: "genre_id",
           value: bookData.genre_id,
@@ -99,9 +96,9 @@ const CadBook = () => {
         }}
       >
         <GenreModal />
-      </ModalProvider>
+      </ModalProvider> */}
 
-      <ModalProvider
+      {/* <ModalProvider
         value={{
           name: "author_id",
           value: bookData.author_id,
@@ -113,9 +110,9 @@ const CadBook = () => {
         }}
       >
         <AuthorModal />
-      </ModalProvider>
+      </ModalProvider> */}
 
-      <ModalProvider
+      {/* <ModalProvider
         value={{
           name: "publish_company_id",
           value: bookData.publish_company_id,
@@ -128,18 +125,18 @@ const CadBook = () => {
       >
         <PublisherModal />
       </ModalProvider>
-      <Header />
+      <Header /> */}
 
-      <div className="w-2/3 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
+      <div className="w-2/3 m-auto flex items-center justify-center text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
         <div>
           <h1 className="font-semibold text-4xl my-10 ">Cadastre seu Livro</h1>
         </div>
       </div>
 
       <form onSubmit={HandleSubmit}>
-        <div className="w-1/2 m-auto text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
+        <div className="flex items-center justify-center text-center text-zinc-800">
           {/*formulário*/}
-          <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-3 grid grid-cols-12 text-left ">
+          <div className="bg-azulzinho-escurinho rounded w-[50%] h-[80%] m-10 p-10 z-0 max-xl:mt-3 flex flex-col text-left ">
             <label className="text-creminho font-semibold">Título:</label>
             <CustomInput
               includedClasses={" rounded-full col-span-12"}
@@ -147,32 +144,49 @@ const CadBook = () => {
               value={bookData.name}
               change={handleData}
             />
-
-            <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
-              <label className="text-creminho mt-3 col-span-12 font-semibold">
-                Autor:
-              </label>
-              <CustomInput
-                includedClasses={
-                  "col-span-10 max-md:col-span-12 rounded-l-full"
-                }
-                value={
-                  bookData.author_id ? bookData.author_id.split(",")[1] : ""
-                }
-                name={"author_id"}
-                change={handleData}
-                disabled={true}
-              />
-              <button
-                type="button"
-                onClick={() => setAuthorIsOpen(true)}
-                className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
-              >
-                {" "}
-                <span className="m-auto">
-                  <MagnifyingGlass size={25} weight="light" />
-                </span>
-              </button>
+            <div className="flex justify-between items-center">
+              <div className="row-span-6 grid grid-cols-12 max-md:col-span-12">
+                <label className="text-creminho mt-3 col-span-12 font-semibold">
+                  Autor:
+                </label>
+                <ModalProvider
+                  value={{
+                    name: "author_id",
+                    value: bookData.author_id,
+                    change: handleData,
+                  }}
+                >
+                  <AuthorModal />
+                </ModalProvider>
+              </div>
+              <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
+                <label className="text-creminho mt-3 col-span-12 font-semibold">
+                  Editora:
+                </label>
+                <ModalProvider
+                  value={{
+                    name: "publish_company_id",
+                    value: bookData.publish_company_id,
+                    change: handleData,
+                  }}
+                >
+                  <PublisherModal />
+                </ModalProvider>
+              </div>
+              <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
+                <label className="text-creminho mt-3 col-span-12 font-semibold">
+                  Gênero
+                </label>
+                <ModalProvider
+                  value={{
+                    name: "genre_id",
+                    value: bookData.genre_id,
+                    change: handleData,
+                  }}
+                >
+                  <GenreModal />
+                </ModalProvider>
+              </div>
             </div>
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
@@ -180,37 +194,14 @@ const CadBook = () => {
                 Páginas:
               </label>
               <CustomInput
-                includedClasses={" rounded-full col-span-11 max-md:col-span-12"}
+                includedClasses={
+                  " col-span-12 bg-verdinho-escurinho rounded-3xl text-creminho text-center p-1"
+                }
                 type={"Number"}
                 name={"pages"}
-                value={bookData.pages == 0 ? '': bookData.pages}
+                value={bookData.pages}
                 change={handleData}
               />
-            </div>
-
-            <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
-              <label className="text-creminho mt-3 col-span-12 font-semibold">
-                Genero:
-              </label>
-              <CustomInput
-                includedClasses={
-                  "col-span-10 max-md:col-span-12 rounded-l-full"
-                }
-                name={"genre_id"}
-                change={handleData}
-                value={bookData.genre_id ? bookData.genre_id.split(",")[1] : ""}
-                disabled={true}
-              />
-              <button
-                type="button"
-                onClick={() => setGenreIsOpen(true)}
-                className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
-              >
-                {" "}
-                <span className="m-auto">
-                  <MagnifyingGlass size={25} weight="light" />
-                </span>
-              </button>
             </div>
 
             <div className="col-span-6 grid grid-cols-12 max-md:col-span-12">
@@ -218,7 +209,9 @@ const CadBook = () => {
                 Data de lançamento:
               </label>
               <CustomInput
-                includedClasses={" rounded-full col-span-11 max-md:col-span-12"}
+                includedClasses={
+                  " col-span-12 bg-verdinho-escurinho rounded-3xl text-creminho text-center p-1"
+                }
                 type={"date"}
                 name={"release_date"}
                 value={bookData.date}
@@ -236,35 +229,6 @@ const CadBook = () => {
                 value={bookData.language}
                 change={handleData}
               />
-            </div>
-
-            <div className="col-span-12 grid grid-cols-12 max-md:col-span-12">
-              <label className="text-creminho mt-3 col-span-12 font-semibold">
-                Editora:
-              </label>
-              <CustomInput
-                includedClasses={
-                  "col-span-10 max-md:col-span-12 rounded-l-full"
-                }
-                value={
-                  bookData.publish_company_id
-                    ? bookData.publish_company_id.split(",")[1]
-                    : ""
-                }
-                name={"publish_company_id"}
-                change={handleData}
-                disabled={true}
-              />
-              <button
-                type="button"
-                onClick={() => setPublisherIsOpen(true)}
-                className="flex col-span-2 bg-verdinho-escurinho rounded-r-full text-creminho align-middle"
-              >
-                {" "}
-                <span className="m-auto">
-                  <MagnifyingGlass size={25} weight="light" />
-                </span>
-              </button>
             </div>
 
             <label className="text-creminho font-semibold mt-3">Sinopse:</label>

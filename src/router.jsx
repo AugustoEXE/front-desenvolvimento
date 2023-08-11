@@ -11,43 +11,45 @@ import CadPublish from "./pages/CadPublish";
 import CadAuthor from "./pages/CadAuthor";
 import { ProtectedRoute } from "./components/global/AuthProvider";
 const router = createBrowserRouter([
-
   {
     path: "/login",
     element: <Login />,
   },
   {
     path: "/",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <Home />
-      </>,
+      </>
+    ),
   },
   {
     path: "/user",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <Dashboard />
       </>
+    ),
   },
   {
     path: "/cad-book",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadBook />
       </>
+    ),
   },
   {
     path: "/cad-user",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadUser />
       </>
-
+    ),
   },
   {
     path: "/book/:id",
@@ -56,35 +58,35 @@ const router = createBrowserRouter([
         <ProtectedRoute />
         <Book />
       </>
-
+    ),
   },
   {
     path: "/cad-author",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadAuthor />
       </>
-
+    ),
   },
   {
     path: "/cad-genre",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadGenre />
       </>
-
+    ),
   },
   {
     path: "/cad-publish-company",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadPublish />
       </>
+    ),
   },
-
 ]);
 
 export default router;
