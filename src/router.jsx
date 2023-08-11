@@ -11,106 +11,81 @@ import CadPublish from "./pages/CadPublish";
 import CadAuthor from "./pages/CadAuthor";
 import { ProtectedRoute } from "./components/global/AuthProvider";
 const router = createBrowserRouter([
-
   {
     path: "/login",
     element: <Login />,
   },
   {
     path: "/",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <Home />
-      </>,
+      </>
+    ),
   },
   {
     path: "/user",
-<<<<<<< HEAD
-    element: <Dashboard />,
-  },
-  {
-    path: "/cad-book",
-    element: <CadBook />,
-  },
-  {
-    path: "/cad-user",
-    element: <CadUser />,
-  },
-  {
-    path: "/book",
-    element: <Book />,
-  },
-  {
-    path: "/cad-author",
-    element: <CadAuthor />,
-  },
-  {
-    path: "/cad-genre",
-    element: <CadGenre />,
-  },
-  {
-    path: "/cad-publish-company",
-    element: <CadPublish />,
-=======
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <Dashboard />
       </>
+    ),
   },
   {
     path: "/cad-book",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadBook />
       </>
+    ),
   },
   {
     path: "/cad-user",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadUser />
       </>
-
+    ),
   },
   {
     path: "/book",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <Book />
       </>
-
+    ),
   },
   {
     path: "/cad-author",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadAuthor />
       </>
-
+    ),
   },
   {
     path: "/cad-genre",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadGenre />
       </>
-
+    ),
   },
   {
     path: "/cad-publish-company",
-    element:
+    element: (
       <>
         <ProtectedRoute />
         <CadPublish />
       </>
->>>>>>> ccb3a15c205fc2fce5e9d727b41bb5cec63cc1d2
+    ),
   },
 ]);
 

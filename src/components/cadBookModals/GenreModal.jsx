@@ -8,27 +8,23 @@ const GenreModal = () => {
   const list = useGet(() => listGenres());
   const { change, name } = useModalValues();
   return (
-    <ModalBase>
-      <div className="">
-        {list.map((e) => {
-          return (
-            <div
-              className="grid grid-cols-6 items-center text-2xl align-middle p-4"
-              key={e.id}
-            >
-              <input
-                type="radio"
-                name={name}
-                value={[e.id, e.name] }
-                className="w-6 h-6 mt-1 col-span-1"
-                onChange={change}
-              />
-              <p className="col-span-5 text-end">{e.name}</p>
-            </div>
-          );
-        })}
-      </div>
-    </ModalBase>
+    <select
+      name={name}
+      id=""
+      onChange={change}
+      className="rounded-full col-span-6 max-md:col-span-12 bg-verdinho-escurinho  text-creminho text-center p-1 h-9"
+    >
+      {list.map((e) => {
+        return (
+          <>
+            <option disabled selected></option>
+            <option name={name} value={e.id}>
+              {e.name}
+            </option>
+          </>
+        );
+      })}
+    </select>
   );
 };
 

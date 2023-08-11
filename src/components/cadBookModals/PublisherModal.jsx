@@ -8,25 +8,23 @@ const PublishModal = () => {
   const { change, name } = useModalValues();
 
   return (
-    <ModalBase>
-      {list.map((item, i) => {
+    <select
+      name={name}
+      id=""
+      onChange={change}
+      className="rounded-full col-span-6 max-md:col-span-12 bg-verdinho-escurinho  text-creminho text-center p-1 h-9"
+    >
+      {list.map((e) => {
         return (
-          <div
-            key={i}
-            className="flex justify-between items-center text-2xl align-middle p-4"
-          >
-            <input
-              type="radio"
-              name={name}
-              value={[item.id, item.name]}
-              className="w-6 h-6 mt-1"
-              onChange={change}
-            />
-            <p>{item.name}</p>
-          </div>
+          <>
+            <option disabled selected></option>
+            <option name={name} value={e.id}>
+              {e.name}
+            </option>
+          </>
         );
       })}
-    </ModalBase>
+    </select>
   );
 };
 

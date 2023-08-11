@@ -28,8 +28,6 @@ const Login = () => {
       .catch((err) => console.error(err));
   };
 
-  console.info(test2);
-
   return (
     <>
       <div className="h-screen absolute bottom-0 right-0 w-1/2 bg-laranjinha flex ">
