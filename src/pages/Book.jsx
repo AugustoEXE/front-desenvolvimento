@@ -3,13 +3,12 @@ import { UserCircle } from "@phosphor-icons/react";
 import { useParams } from "react-router-dom";
 import booksFromAPI from "../services/books";
 import { useGet } from "../hooks/useGet";
+import { useBook } from "../components/global/BookProvider";
 
 const Book = () => {
-  const { id } = useParams();
-  const listBooks = useGet(() => booksFromAPI.listBooks({ id: +id }));
-  const currentBook = listBooks[0]
+  const {selectedBook} = useBook()
   // const formattedDate = new Date(currentBook?.release_date)
-  console.warn(listBooks)
+  console.warn(selectedBook)
 
   return (
     <div className="w-full">
@@ -19,7 +18,7 @@ const Book = () => {
           <div className="text-left">
             <div className="my-1">
               <div className="font-semibold">Nome: </div>
-              <div>Augusto C. Rodrigues</div>
+              <div>{selectedBook.name}</div>
             </div>
             <div>
               <div className="font-semibold">E-mail: </div>
