@@ -13,6 +13,7 @@ export default {
         'creminho': '#F7F4EB',
         'azulzinho': '#A1CCD1',
         'laranjinha': '#E9B384',
+        'laranjinha-escurinho': '#CB9C74',
         'verdinho':'#7C9D96',
         'azulzinho-escurinho': '#96ADAE',
         'verdinho-escurinho': '#5F8084'
