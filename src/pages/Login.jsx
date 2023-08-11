@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useToken } from "../components/global/AuthProvider";
 import { sendLoginData } from "../services/login";
-
-const { setToken } = useToken();
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/global/AuthProvider";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -19,24 +20,15 @@ const Login = () => {
     }));
   };
 
-  const HandleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log(userData);
-
-    const test = async () => {
-      try {
-        const resp = await sendLoginData({ ...userData });
-        console.warn(resp);
-        setToken({ isAuth: true });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    const test2 = test();
-
-    console.info(test2);
+    sendLoginData({ ...userData })
+      .then(setAuth(true), navigate("/user"))
+      .catch((err) => console.error(err));
   };
+
+  console.info(test2);
 
   return (
     <>
@@ -46,7 +38,7 @@ const Login = () => {
             login
           </h2>
           <div className="text-center ">
-            <form onSubmit={HandleSubmit}>
+            <form onSubmit={handleSubmit}>
               <div className="mt-10">
                 <label
                   htmlFor=""

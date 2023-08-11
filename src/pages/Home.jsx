@@ -3,6 +3,7 @@ import { React, useEffect, useState } from "react";
 import Header from "../components/global/Header";
 
 import ListofBook from "../components/global/Book";
+import { ListButtonFilter } from "../components/global/ListButtonFilter";
 
 const Home = () => {
   return (
@@ -18,7 +19,7 @@ const Home = () => {
         </p>
         <div className=" grid grid-cols-9 mt-4">
           <input
-            className="col-start-3 col-span-4 h-9 bg-verdinho-escurinho rounded-l-full text-creminho placeholder:text-creminho placeholder:italic"
+            className="col-start-3 col-span-4 h-9 bg-verdinho-escurinho rounded-l-full text-creminho placeholder:text-creminho placeholder:italic p-2"
             placeholder="Search"
           />
           <span className="bg-verdinho-escurinho rounded-r-full text-creminho flex align-middle justify-end mr-3">
@@ -33,6 +34,7 @@ const Home = () => {
             <SlidersHorizontal size={35} weight="light" />
           </span>
         </div>
+        <ListButtonFilter />
       </div>
       <div className="w-full flex justify-center mt-4">
         <hr className="h-px bg-zinc-600 rounded-full w-9/12 border-0" />
@@ -45,6 +47,6 @@ const Home = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Home;
