@@ -6,7 +6,7 @@ const listAuthors = async () => {
 };
 
 const createAuthors = async (data) => {
-  return await axios.post(`${VITE_API_URL}/author`, { params: data });
+  return await axios.post(`${VITE_API_URL}/author`,  data );
 };
 
 const updateAuthors = async (data, id) => {
