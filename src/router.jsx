@@ -9,6 +9,14 @@ import CadUser from "./pages/CadUser";
 import CadGenre from "./pages/CadGenre";
 import CadPublish from "./pages/CadPublish";
 import CadAuthor from "./pages/CadAuthor";
+import AdminHome from "./pages/AdminHome"
+import GenreList from "./pages/lists/GenresList"
+import AuthorList from "./pages/lists/AuthorList"
+import PublisherList from "./pages/lists/PublisherList"
+import BooksList from "./pages/lists/BooksList"
+import UsersList from "./pages/lists/UsersList"
+
+
 import { ProtectedRoute } from "./components/global/AuthProvider";
 const router = createBrowserRouter([
   {
@@ -84,6 +92,60 @@ const router = createBrowserRouter([
       <>
         <ProtectedRoute />
         <CadPublish />
+      </>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <>
+        <ProtectedRoute />
+        <AdminHome />
+      </>
+    ),
+  },
+  {
+    path: "/list-genres",
+    element: (
+      <>
+        <ProtectedRoute />
+        <GenreList />
+      </>
+    ),
+  },
+  {
+    path: "/list-authors",
+    element: (
+      <>
+        <ProtectedRoute />
+        <AuthorList />
+      </>
+    ),
+  },
+  {
+    path: "/list-publishers",
+    element: (
+      <>
+        <ProtectedRoute />
+        <PublisherList />
+      </>
+    ),
+  },
+  {
+    path: "/list-books",
+    element: (
+      <>
+        <ProtectedRoute />
+        <BooksList />
+      </>
+    ),
+  },
+  {
+    path: "/list-users",
+    element: (
+      <>
+        <ProtectedRoute />
+        <UsersList />
       </>
     ),
   },

@@ -14,7 +14,7 @@ const Book = () => {
     <div className="w-full ">
       <Header />
       <div className=" w-3/4 m-auto  bg-azulzinho-escurinho mt-16 rounded-xl">
-        <div className="flex flex-row flex-wrap" >
+        <div className="flex flex-row " >
           <img
           className="scale-75 rounded shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
             src={new Uint8Array(selectedBook.cover?.data).reduce((str, byte) => str + String.fromCharCode(byte),"")}

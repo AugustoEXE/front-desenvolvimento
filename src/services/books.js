@@ -15,7 +15,7 @@ const listBooks = async (data) => {
 };
 
 const deleteBook = async (id) => {
-  return await axios.get(`${API_URL}/book/del/${id}`);
+  return await axios.delete(`${API_URL}/book/del/${id}`);
 };
 
 const updateBook = async (id, data) => {

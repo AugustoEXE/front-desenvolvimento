@@ -10,7 +10,7 @@ const listGenres = async (data) => {
 };
 
 const deleteGenre = async (id) => {
-  return await axios.get(`${API_URL}/genre/del/${id}`);
+  return await axios.delete(`${API_URL}/genre/${id}`);
 };
 
 const updateGenre = async (id, data) => {
