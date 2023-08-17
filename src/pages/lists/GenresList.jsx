@@ -2,25 +2,25 @@ import { PencilLine, PencilSimpleLine, TrashSimple } from "@phosphor-icons/react
 import Header from "../../components/global/Header";
 import { useGet } from "../../hooks/useGet";
 import { listGenres, deleteGenre } from "../../services/genres";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 
 
 /*
 TODO: 
 precisa fazer o componente renderizar, mas ta apagando
-
-
-
 */
 const GenreList = () => {
-    const list = useGet(() => listGenres());
+
+    const [updated,setUpdated] = useState(0)
+    const list = useGet(() => listGenres())
 
     const handleDelete = (id) =>{
-        deleteGenre(id).then(this.forceUpdate())
+        deleteGenre(id)
+        .then(res => setUpdated(id),console.log(res.data))
+        .catch(err => console.warn(err))
     }
 
-    console.log(list)
 
   return (
     <div>
