@@ -15,3 +15,8 @@ export const createUser = async (data) => {
 }
 
 
+
+export const deleteUser = async (id) => {
+    return await axios.delete(`${API_URL}/user/delete/${id}`);
+};
+  
