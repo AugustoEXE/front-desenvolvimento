@@ -12,7 +12,7 @@ const PublishModal = () => {
       name={name}
       id=""
       onChange={change}
-      className="rounded-full col-span-6 max-md:col-span-12 bg-verdinho-escurinho  text-creminho text-center p-1 h-9"
+      className="rounded-full col-span-11 max-md:col-span-12 bg-verdinho-escurinho  text-creminho text-center p-1 h-9"
     >
       {list.map((e) => {
         return (

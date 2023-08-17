@@ -6,6 +6,9 @@ const getCurrentUserData = async (data) => {
     return await axios.get(`${API_URL}/user/login`,  data );
 };
 
+export const getAllUsers = async () =>{
+    return await axios.get(`${API_URL}/user/get-all`)
+}
 
 export const createUser = async (data) => {
     return await axios.post(`${API_URL}/create/user`, data)

@@ -8,8 +8,10 @@ import PublisherModal from "../components/cadBookModals/PublisherModal";
 import { ModalProvider } from "../hooks/useModalValues";
 import { usePost } from "../hooks/usePost";
 import booksAPI from "../services/books";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CadBook = () => {
+  const navigate = useNavigate()
   const [modalGenreIsOpen, setGenreIsOpen] = useState(false);
   const [modalAuthorIsOpen, setAuthorIsOpen] = useState(false);
   const [modalPublisherIsOpen, setPublisherIsOpen] = useState(false);
@@ -59,14 +61,13 @@ const CadBook = () => {
     const test = async () => {
       try {
         await booksAPI.createBook({ ...bookData });
+        navigate("/home")
       } catch (e) {
         console.error(e);
       }
     };
 
-    const test2 = test();
-
-    console.info(test2);
+    console.log(test())
   };
 
   console.log(bookData);
@@ -84,48 +85,8 @@ const CadBook = () => {
 
   return (
     <div className=" flex-col items-center justify-center">
-      {/* <ModalProvider
-        value={{
-          name: "genre_id",
-          value: bookData.genre_id,
-          type: "number",
-          isOpen: modalGenreIsOpen,
-          title: "Generos",
-          setOpen: setGenreIsOpen,
-          change: handleData,
-        }}
-      >
-        <GenreModal />
-      </ModalProvider> */}
-
-      {/* <ModalProvider
-        value={{
-          name: "author_id",
-          value: bookData.author_id,
-          type: "number",
-          isOpen: modalAuthorIsOpen,
-          title: "Autores",
-          setOpen: setAuthorIsOpen,
-          change: handleData,
-        }}
-      >
-        <AuthorModal />
-      </ModalProvider> */}
-
-      {/* <ModalProvider
-        value={{
-          name: "publish_company_id",
-          value: bookData.publish_company_id,
-          type: "number",
-          isOpen: modalPublisherIsOpen,
-          title: "Editoras",
-          setOpen: setPublisherIsOpen,
-          change: handleData,
-        }}
-      >
-        <PublisherModal />
-      </ModalProvider>
-      <Header /> */}
+      <Header/>
+      
 
       <div className="w-2/3 m-auto flex items-center justify-center text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
         <div>
