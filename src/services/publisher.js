@@ -13,7 +13,7 @@ const updatePublisher = async (data, id) => {
   return await axios.put(`${VITE_API_URL}/publish-company/${id}`, { params: data });
 };
 
-const deletePublisher = async () => {
+const deletePublisher = async (id) => {
   return await axios.delete(`${VITE_API_URL}/publish-company/${id}`);
 };
 

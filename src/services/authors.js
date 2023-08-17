@@ -13,8 +13,8 @@ const updateAuthors = async (data, id) => {
   return await axios.put(`${VITE_API_URL}/author/${id}`, { params: data });
 };
 
-const deleteAuthors = async () => {
-  return await axios.delete(`${VITE_API_URL}/authors/${id}`);
+const deleteAuthors = async (id) => {
+  return await axios.delete(`${VITE_API_URL}/author/${id}`);
 };
 
 export { listAuthors, createAuthors, updateAuthors, deleteAuthors };

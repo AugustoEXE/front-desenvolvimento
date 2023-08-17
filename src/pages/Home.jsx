@@ -31,9 +31,6 @@ const Home = () => {
           <span>
             <SlidersHorizontal size={35} weight="light" />
           </span>
-          <span>
-            <SlidersHorizontal size={35} weight="light" />
-          </span>
         </div>
         <ListButtonFilter />
       </div>
