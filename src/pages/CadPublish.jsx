@@ -1,17 +1,22 @@
 import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { useState } from "react";
-import { createPublisher } from "../services/publisher";
+import { createPublisher, updatePublisher } from "../services/publisher";
 import { useNavigate } from "react-router-dom";
+import { useUpdate } from "../components/global/UpdateProvider";
 
 const CadPublish = () => {
-
-    const [publisher, setPublisher] = useState('')
+    const {selected} = useUpdate()
+    const [publisher, setPublisher] = useState(!selected ? '' : selected.name)
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        createPublisher(({ name: publisher })).then(res=>console.log(res),navigate('/cad-book'))
+        if(!selected){
+            createPublisher(({ name: publisher })).then(navigate('/list-publishers'))
+        }
+
+        updatePublisher(selected?.id,({ name: publisher })).then(navigate('/list-publishers'))
     }
 
     return (

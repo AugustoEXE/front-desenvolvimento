@@ -1,17 +1,35 @@
 import { PencilSimpleLine, TrashSimple } from "@phosphor-icons/react";
 import Header from "../../components/global/Header";
-import { useGet } from "../../hooks/useGet";
 import { getAllUsers,deleteUser } from "../../services/users";
-import { useMemo, useState } from "react"
+import { useEffect, useState } from "react"
+import { useUpdate } from "../../components/global/UpdateProvider";
+import { useNavigate } from "react-router-dom";
+
 
 const UsersList = () => {
-  const list = useGet(() => getAllUsers());
+  const navigate = useNavigate()
+  const {selected,setSelected} = useUpdate()
+  const [list, setList] = useState([])
 
-  const handleDelete = async (id) => {
-    await deleteUser(id).then(res=>console.log(res))
-  }
+  useEffect(() => {
+    const request = async () => {
+      const result = await getAllUsers();
+      setList(result.data);
+    }
+    request()
 
-  console.log('list',list)
+  }, [selected])
+
+  const handleDelete = (id) => {
+    deleteUser(id)
+        .then(res => setSelected(id))
+        .catch(err => console.warn(err))
+}
+
+const handleUpdate = (user) => {
+    setSelected({...user})
+    navigate('/cad-user')
+}
   
   return (
     <div>
@@ -40,7 +58,8 @@ const UsersList = () => {
                       <td>{e.email}</td>
                       <td>
                         <button type="button" onClick={() => handleDelete(e.id)} className="p-2 m-2 bg-laranjinha-escurinho rounded"><TrashSimple size={32} weight="light" /></button>
-                        <button type="button" className="p-2 m-2 bg-verdinho rounded"><PencilSimpleLine size={32} weight="light" /></button>
+                        <button type="button" onClick={() => handleUpdate(e)} className="p-2 m-2 bg-verdinho rounded"><PencilSimpleLine size={32} weight="light" /></button>
+
                       </td>
                     </tr>
                   )

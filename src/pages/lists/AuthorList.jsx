@@ -1,18 +1,34 @@
-import {PencilSimpleLine, TrashSimple } from "@phosphor-icons/react";
+import { PencilSimpleLine, TrashSimple } from "@phosphor-icons/react";
 import Header from "../../components/global/Header";
-import { useGet } from "../../hooks/useGet";
 import { listAuthors, deleteAuthors } from "../../services/authors";
-import {useState} from "react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+import { useUpdate } from "../../components/global/UpdateProvider";
 
 const AuthorList = () => {
-    const [seed, setSeed] = useState(0);
+  const navigate = useNavigate()
+  const { selected, setSelected } = useUpdate()
+  const [list, setList] = useState([])
 
-    const list = useGet(() => listAuthors());
+  useEffect(() => {
+    const request = async () => {
+      const result = await listAuthors();
+      setList(result.data);
+    }
+    request()
 
-    const handleDelete = async (id) =>{
-      await deleteAuthors(id)
+  }, [selected])
+
+  const handleDelete = (id) => {
+    deleteAuthors(id)
+      .then(res => setSelected(id))
+      .catch(err => console.warn(err))
   }
 
+  const handleUpdate = (author) => {
+    setSelected(author)
+    navigate('/cad-author')
+  }
   return (
     <div>
       <Header />
@@ -21,33 +37,33 @@ const AuthorList = () => {
           <h1 className="font-semibold text-4xl my-10 ">Lista de Autores</h1>
         </div>
         <div className="bg-azulzinho-escurinho rounded p-10 z-0 max-xl:mt-5 text-creminho">
-            <table className="w-full text-center rounded shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.28)]">
-                <thead className="bg-laranjinha-escurinho h-12">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Ações</th>
+          <table className="w-full text-center rounded shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.28)]">
+            <thead className="bg-laranjinha-escurinho h-12">
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                list.map((e, i) => {
+                  return (
+                    <tr className="even:bg-verdinho-escurinho hover:bg-azulzinho" key={i}>
+                      <td>{e.id}</td>
+                      <td>{e.name}</td>
+                      <td>
+                        <button type="button" onClick={() => handleDelete(e.id)} className="p-2 m-2 bg-laranjinha-escurinho rounded"><TrashSimple size={32} weight="light" /></button>
+                        <button type="button" onClick={() => handleUpdate(e)} className="p-2 m-2 bg-verdinho rounded"><PencilSimpleLine size={32} weight="light" /></button>
+                      </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {
-                        list.map((e, i)=>{
-                            return (
-                                <tr className="even:bg-verdinho-escurinho hover:bg-azulzinho" key={i}>
-                                <td>{e.id}</td>
-                                <td>{e.name}</td>
-                                <td>
-                                    <button type="button" onClick={()=> handleDelete(e.id)} className="p-2 m-2 bg-laranjinha-escurinho rounded"><TrashSimple size={32} weight="light" /></button>
-                                    <button type="button" className="p-2 m-2 bg-verdinho rounded"><PencilSimpleLine  size={32} weight="light" /></button>
-                                </td>
-                            </tr>
-                            )
-                        })
-                    }
-                   
-                    
-                </tbody>
-            </table>
+                  )
+                })
+              }
+
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

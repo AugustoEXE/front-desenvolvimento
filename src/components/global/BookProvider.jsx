@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
 
 const useBookSource = () => {
-    const [selectedBook,setSelectedBook] = useState({})
-    return {selectedBook,setSelectedBook}
+    const [selected,setSelected] = useState({})
+    return {selected,setSelected}
 }
 
 const BookContext = createContext()

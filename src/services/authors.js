@@ -9,8 +9,8 @@ const createAuthors = async (data) => {
   return await axios.post(`${VITE_API_URL}/author`,  data );
 };
 
-const updateAuthors = async (data, id) => {
-  return await axios.put(`${VITE_API_URL}/author/${id}`, { params: data });
+const updateAuthors = async (id,data) => {
+  return await axios.put(`${VITE_API_URL}/author/${id}`, data );
 };
 
 const deleteAuthors = async (id) => {
