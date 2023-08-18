@@ -1,12 +1,15 @@
 import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./components/global/AuthProvider";
-import { BookProvider } from "./components/global/BookProvider";
+import { UpdateProvider } from "./components/global/UpdateProvider";
 import router from "./router";
+import { BookProvider } from "./components/global/BookProvider";
 function App() {
   return (
     <AuthProvider>
       <BookProvider>
-        <RouterProvider router={router} />
+        <UpdateProvider>
+          <RouterProvider router={router} />
+        </UpdateProvider>
       </BookProvider>
     </AuthProvider>
   );

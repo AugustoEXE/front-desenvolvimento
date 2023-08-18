@@ -1,17 +1,21 @@
 import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { useState } from "react";
-import { createGenre } from "../services/genres";
+import { createGenre, updateGenre } from "../services/genres";
 import { useNavigate } from "react-router-dom";
-
+import { useUpdate } from "../components/global/UpdateProvider";
 const CadGenre = () => {
-
-    const [genre, setGenre] = useState('')
+    const {selected} = useUpdate()
+    const [genre, setGenre] = useState(!selected ? '' : selected.name)
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        createGenre(({ name: genre })).then(navigate('/cad-book'))
+        if(!selected){
+            createGenre(({ name: genre })).then(navigate('/list-genres'))
+        }
+
+        updateGenre(selected?.id,({ name: genre })).then(navigate('/list-genres'))
     }
     return (
         <div>

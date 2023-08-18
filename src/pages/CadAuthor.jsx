@@ -1,16 +1,22 @@
 import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { useState } from "react";
-import { createAuthors } from "../services/authors";
+import { createAuthors, updateAuthors } from "../services/authors";
 import { useNavigate } from "react-router-dom";
+import { useUpdate } from "../components/global/UpdateProvider";
 
 const CadAuthor = () => {
-    const [author,setAuthor] = useState('')
+    const {selected} = useUpdate()
+    const [author,setAuthor] = useState(!selected ? '' : selected.name)
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        createAuthors(({name:author})).then(navigate('/cad-book'))
+        if(!selected){
+            createAuthors(({ name: author })).then(navigate('/list-authors'))
+        }
+
+        updateAuthors(selected?.id,({ name: author })).then(navigate('/list-authors'))
     }
     return (
         <div>

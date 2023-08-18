@@ -1,15 +1,24 @@
 import Header from "../components/global/Header";
 import CustomInput from "../components/global/CustomInput";
 import { useState } from "react";
-import { createUser } from "../services/users";
+import { createUser, updateUser } from "../services/users";
+import { useNavigate } from "react-router-dom";
+import { useUpdate } from "../components/global/UpdateProvider";
+
 const CadUser = () => {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPass: '',
-    admin: false
-  })
+  const { selected } = useUpdate()
+  const [userData, setUserData] = useState(
+    !selected
+      ? {
+        name: '',
+        email: '',
+        password: '',
+        confirmPass: '',
+        admin: false
+      }
+      : selected
+  )
+  const navigate = useNavigate()
   const handleChange = ({ target }) => {
     const { name, value } = target
     setUserData((data) => ({
@@ -18,11 +27,16 @@ const CadUser = () => {
     }))
   }
 
+  console.log(selected)
   const handleSubmit = () => {
-    if (userData.password !== userData.confirmPass)
-      return alert('As senhas devem ser iguais! tente novamente')
 
-    createUser(({ ...userData,admin: userData.admin == 'true' , confirmPass: undefined })).then(res => console.log(res))
+    event.preventDefault()
+    if(!selected){
+      createUser(({ ...userData, admin: userData.admin == 'true', confirmPass: undefined }))
+
+    }
+
+    updateUser(selected?.id,userData).then(navigate('/list-users'))
   }
 
   return (
@@ -37,10 +51,15 @@ const CadUser = () => {
           <CustomInput includedClasses={"rounded-full col-span-12 "} name={"name"} value={userData.name} change={handleChange} />
           <label className="text-creminho mt-5 font-semibold col-span-12">E-mail:</label>
           <CustomInput includedClasses={"rounded-full col-span-12 "} name={"email"} value={userData.email} change={handleChange} />
-          <label className="text-creminho mt-5 font-semibold col-span-12">Senha:</label>
-          <CustomInput includedClasses={"rounded-full col-span-12 "} name={"password"} value={userData.password} change={handleChange} />
-          <label className="text-creminho mt-5 font-semibold col-span-12">Confrme a senha:</label>
-          <CustomInput includedClasses={"rounded-full col-span-12 "} name={"confirmPass"} value={userData.confirmPass} change={handleChange} />
+          {!selected.name ? (
+            <>
+              <label className="text-creminho mt-5 font-semibold col-span-12">Senha:</label>
+              <CustomInput includedClasses={"rounded-full col-span-12 "} name={"password"} value={userData.password} change={handleChange} />
+              <label className="text-creminho mt-5 font-semibold col-span-12">Confrme a senha:</label>
+              <CustomInput includedClasses={"rounded-full col-span-12 "} name={"confirmPass"} value={userData.confirmPass} change={handleChange} />
+            </>
+          ) : ''
+          }
           <label className="text-creminho mt-5 font-semibold col-span-12">Admin:</label>
           <div className="col-span-12">
             <label className="relative inline-flex items-center cursor-pointer">
