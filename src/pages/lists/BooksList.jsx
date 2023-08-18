@@ -2,27 +2,33 @@ import { PencilSimpleLine, TrashSimple } from "@phosphor-icons/react";
 import Header from "../../components/global/Header";
 import { useGet } from "../../hooks/useGet";
 import BookAPI from "../../services/books";
-import { useState } from "react"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUpdate } from "../../components/global/UpdateProvider";
 
 const BooksList = () => {
-  const [updated, setUpdated] = useState(0)
-  const [list, setList] = useState([])
+  const navigate = useNavigate();
+  const { selected, setSelected } = useUpdate();
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     const request = async () => {
       const result = await BookAPI.listBooks();
       setList(result.data);
-    }
-    request()
-
-  }, [updated])
+    };
+    request();
+  }, [selected]);
 
   const handleDelete = (id) => {
     BookAPI.deleteBook(id)
-      .then(res => setUpdated(id))
-      .catch(err => console.warn(err))
-  }
+      .then((res) => setSelected(id))
+      .catch((err) => console.warn(err));
+  };
 
+  const handleUpdate = (book) => {
+    setSelected(book);
+    navigate("/cad-book");
+  };
   return (
     <div>
       <Header />
@@ -45,29 +51,39 @@ const BooksList = () => {
               </tr>
             </thead>
             <tbody>
-              {
-                list.map((e, i) => {
-                  console.log(e)
-                  return (
-
-                    <tr className="even:bg-verdinho-escurinho hover:bg-azulzinho" key={i}>
-                      <td>{e.id}</td>
-                      <td>{e.cover?.type}</td>
-                      <td>{e.name}</td>
-                      <td>{e.pages}</td>
-                      <td>{e.author.name}</td>
-                      <td>{e.genre.name}</td>
-                      <td>{e.publish_company.name}</td>
-                      <td>
-                        <button type="button" onClick={() => handleDelete(e.id)} className="p-2 m-2 bg-laranjinha-escurinho rounded"><TrashSimple size={32} weight="light" /></button>
-                        <button type="button" className="p-2 m-2 bg-verdinho rounded"><PencilSimpleLine size={32} weight="light" /></button>
-                      </td>
-                    </tr>
-                  )
-                })
-              }
-
-
+              {list.map((e, i) => {
+                console.log(e);
+                return (
+                  <tr
+                    className="even:bg-verdinho-escurinho hover:bg-azulzinho"
+                    key={i}
+                  >
+                    <td>{e.id}</td>
+                    <td>{e.cover?.type}</td>
+                    <td>{e.name}</td>
+                    <td>{e.pages}</td>
+                    <td>{e.author.name}</td>
+                    <td>{e.genre.name}</td>
+                    <td>{e.publish_company.name}</td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(e.id)}
+                        className="p-2 m-2 bg-laranjinha-escurinho rounded"
+                      >
+                        <TrashSimple size={32} weight="light" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleUpdate(e)}
+                        className="p-2 m-2 bg-verdinho rounded"
+                      >
+                        <PencilSimpleLine size={32} weight="light" />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

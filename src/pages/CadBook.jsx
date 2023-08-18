@@ -11,10 +11,7 @@ import booksAPI from "../services/books";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const CadBook = () => {
-  const navigate = useNavigate()
-  const [modalGenreIsOpen, setGenreIsOpen] = useState(false);
-  const [modalAuthorIsOpen, setAuthorIsOpen] = useState(false);
-  const [modalPublisherIsOpen, setPublisherIsOpen] = useState(false);
+  const navigate = useNavigate();
   const [bookData, setBookData] = useState({
     name: "",
     description: "",
@@ -24,7 +21,7 @@ const CadBook = () => {
     author_id: 0,
     genre_id: 0,
     publish_company_id: 0,
-    cover: "",
+    file: File,
   });
 
   const convertToBase64 = (file) => {
@@ -43,7 +40,7 @@ const CadBook = () => {
   const handleImage = async (event) => {
     setBookData({
       ...bookData,
-      cover: await convertToBase64(event.target.files[0]),
+      cover: event.target.files[0],
     });
   };
 
@@ -59,25 +56,46 @@ const CadBook = () => {
     // booksAPI.createBook(bookData)
 
     const test = async () => {
+      const newData = new FormData();
+      for (const key in bookData) {
+        if (bookData.hasOwnProperty(key)) {
+          const value = bookData[key];
+          newData.append(key.toString(), value);
+        }
+      }
+      // newData.append("file", bookData.cover);
+      // newData.append("name", bookData.name);
+      // newData.append("description", bookData.description);
+      // newData.append("pages", bookData.pages);
+      // newData.append("release_date", bookData.release_date);
+      // newData.append("language", bookData.language);
+      // newData.append("author_id", bookData.author_id);
+      // newData.append("genre_id", bookData.genre_id);
+      // newData.append("publish_company_id", bookData.publish_company_id);
+
+      console.log(newData.entries());
       try {
-        await booksAPI.createBook({ ...bookData });
-        navigate("/home")
+        const response = await booksAPI.createBook(newData);
+        if (response) {
+          navigate("/home");
+        }
       } catch (e) {
         console.error(e);
       }
     };
 
-    console.log(test())
+    console.log(test());
   };
 
   console.log(bookData);
 
   const handleData = (event) => {
-    const { name, value } = event.target;
-    console.log();
+    const { name, value, files } = event.target;
+    if (files) {
+    }
     setBookData((originalData) => ({
       ...originalData,
-      [name]: value,
+      [name]: files ? files[0] : value,
     }));
   };
 
@@ -85,8 +103,7 @@ const CadBook = () => {
 
   return (
     <div className=" flex-col items-center justify-center">
-      <Header/>
-      
+      <Header />
 
       <div className="w-2/3 m-auto flex items-center justify-center text-center max-md:w-11/12 max-lg:w-8/12 text-zinc-800">
         <div>
@@ -216,9 +233,10 @@ const CadBook = () => {
                 <input
                   id="dropzone-file"
                   type="file"
-                  name="cover"
+                  accept=".jpg, .jpeg, .png"
+                  name="file"
                   className="hidden"
-                  onChange={handleImage}
+                  onChange={handleData}
                 />
               </label>
             </div>
