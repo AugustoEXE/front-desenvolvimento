@@ -20,12 +20,19 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(userData);
-    sendLoginData({ ...userData })
-      .then(() => setAuth(true), navigate("/user"))
-      .catch((err) => console.error(err));
+  
+  try{
+    const response = await sendLoginData({ ...userData })
+    console.log(response);
+    setAuth(true) 
+    // navigate("/user")
+  }catch(e){
+    throw new Error(e.message)
+  }
+  
   };
 
   return (
