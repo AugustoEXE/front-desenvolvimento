@@ -8,7 +8,7 @@ export const useGet = (funcFromAPI) => {
     let mounted = true;
     const request = async () => {
       const result = await funcFromAPI();
-      // console.log(result);
+      console.log(result);
       if (mounted) {
         setList(result.data);
       }

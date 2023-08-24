@@ -24,4 +24,14 @@ const createBook = async (data) => {
   return await axios.post(`${API_URL}/book`, data);
 };
 
-export default { listBooks, deleteBook, updateBook, createBook };
+const userBookedBooks = async () => {
+  return await axios.get(`${API_URL}/user/books`);
+};
+
+export default {
+  listBooks,
+  deleteBook,
+  updateBook,
+  createBook,
+  userBookedBooks,
+};
