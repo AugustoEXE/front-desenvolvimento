@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const getCurrentUserData = async (data) => {
+const loginUser = async (data) => {
     return await axios.get(`${API_URL}/user/login`,  data );
 };
 
