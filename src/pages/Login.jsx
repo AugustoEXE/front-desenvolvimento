@@ -5,6 +5,10 @@ import { useAuth } from "../components/global/AuthProvider";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState({
+    message: "",
+  });
+
   const { setAuth } = useAuth();
   const [userData, setUserData] = useState({
     email: "",
@@ -20,12 +24,18 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(userData);
-    sendLoginData({ ...userData })
-      .then(() => setAuth(true), navigate("/user"))
-      .catch((err) => console.error(err));
+    setError("");
+
+    try {
+      await sendLoginData({ ...userData });
+      setAuth(true);
+      navigate("/user");
+    } catch (e) {
+      setAuth(false);
+      setError(e.response.data);
+    }
   };
 
   return (
@@ -51,6 +61,13 @@ const Login = () => {
                   value={userData.email}
                   onChange={handleData}
                 />
+                {error.message == "emailNotFound" ? (
+                  <div className="flex justify-center transition">
+                    <p className="text-red-500">Email não encontrado</p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="mt-10">
                 <label
@@ -66,6 +83,13 @@ const Login = () => {
                   value={userData.password}
                   onChange={handleData}
                 />
+                {error.message == "wrongPass" ? (
+                  <div className="flex justify-center">
+                    <p className="text-red-500">Senha incorreta</p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="mt-10">
