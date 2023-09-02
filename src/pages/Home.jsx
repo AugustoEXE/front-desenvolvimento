@@ -1,12 +1,22 @@
 import { MagnifyingGlass, SlidersHorizontal } from "@phosphor-icons/react";
 import { React, useEffect, useState } from "react";
+import { useGet } from "../hooks/useGet";
+import booksFromAPI from "../services/books";
+import DropdownSearch from "../components/global/DropdownSearch";
+
 import Header from "../components/global/Header";
-import Dropdown from "../components/global/Dropdown"
+import Dropdown from "../components/global/Dropdown";
+import listBooks from "../services/books";
 
 import ListofBook from "../components/global/Book";
 import { ListButtonFilter } from "../components/global/ListButtonFilter";
 
 const Home = () => {
+  let listBooks = useGet(() => booksFromAPI.listBooks());
+
+  // console.log(search);
+
+  // console.log(foundBooks);
   return (
     <div>
       <Header />
@@ -18,20 +28,7 @@ const Home = () => {
           Pesquise por livros, autores, editoras, entre outras diversas
           categorias em nossa biblioteca virutal
         </p>
-        <div className=" grid grid-cols-9 mt-4">
-          <input
-            className="col-start-3 col-span-4 h-9 bg-verdinho-escurinho rounded-l-full text-creminho placeholder:text-creminho placeholder:italic p-2"
-            placeholder="Search"
-          />
-          <span className="bg-verdinho-escurinho rounded-r-full text-creminho flex align-middle justify-end mr-3">
-            <span className="m-auto">
-              <MagnifyingGlass size={30} weight="light" />
-            </span>
-          </span>
-          <span>
-            <SlidersHorizontal size={35} weight="light" />
-          </span>
-        </div>
+        <DropdownSearch values={listBooks} />
         <ListButtonFilter />
       </div>
       <div className="w-full flex justify-center mt-4">
@@ -40,7 +37,7 @@ const Home = () => {
 
       <div className="w-full text-center flex content-center justify-center">
         <div className="grid grid-rows-4  grid-cols-3 gap-20">
-          <ListofBook />
+          <ListofBook books={listBooks} />
         </div>
       </div>
     </div>

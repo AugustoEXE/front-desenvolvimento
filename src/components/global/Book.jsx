@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useBook } from "./BookProvider";
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-const ListofBook = () => {
-  let listBooks = useGet(() => booksFromAPI.listBooks());
+const ListofBook = ({ books }) => {
+  // console.log(searchItem);
 
   const { setSelectedBook } = useBook();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const ListofBook = () => {
     setSelectedBook({ ...e });
     navigate(`/book/${e.id}`);
   }
-  return listBooks.map((e) => {
+  return books.map((e) => {
     console.log(e.cover);
     return (
       <div key={e.id} className="flex flex-col  w-60 h-full">

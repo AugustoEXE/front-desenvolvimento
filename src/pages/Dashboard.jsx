@@ -40,14 +40,25 @@ const Dashboard = () => {
             <div className="w-full flex justify-center mb-3">
               <hr className="h-px bg-zinc-600 rounded-full w-full border-0" />
             </div>
-            <div className="">
+            <div className="grid gap-5">
               {userBooks.map((e) => (
-                <div className="grid grid-rows-4 gap-3 grid-cols-4 border">
-                  <img src={VITE_API_URL + "/" + e.cover} />
-                  <p>{e.book.name}</p>
-                  <p>{e.book.genre.name}</p>
-                  <p>{e.book.publish_company.name}</p>
-                  <p>{e.book.author.name}</p>
+                <div className="flex p-2 justify-center items-center border-black border rounded-md divide-x">
+                  <div className="w-full px-1 flex items-center justify-center  border-gray-600">
+                    <img src={VITE_API_URL + "/" + e.cover} />
+                  </div>
+                  <div className="w-full flex px-1 h-full items-center justify-center  border-gray-600">
+                    <p className="w-25 break-words">{e.book.name}</p>
+                  </div>
+
+                  <div className="w-full h-full px-1 flex items-center justify-center  border-gray-600">
+                    <p className="w-25 break-words">{e.book.genre.name}</p>
+                  </div>
+                  <div className="w-full h-full px-1 flex items-center justify-center  border-gray-600">
+                    <p className="break-words">{e.book.publish_company.name}</p>
+                  </div>
+                  <div className=" w-full flex h-full items-center justify-center  border-gray-600">
+                    <p className="w-25 break-words">{e.book.author.name}</p>
+                  </div>
                 </div>
               ))}
             </div>
