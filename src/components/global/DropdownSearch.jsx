@@ -9,7 +9,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DropdownSearch({ size, values }) {
+export default function DropdownSearch({ searchFunc, values }) {
   const [search, setSearch] = useState("");
   const [books, setBooks] = useState([]);
 
@@ -24,7 +24,7 @@ export default function DropdownSearch({ size, values }) {
     }
   }
 
-  const [selected, setSelected] = useState(values[0]);
+  const [selectedBook, setSelectedBook] = useState(values[0]);
   const [query, setQuery] = useState("");
 
   const filteredPeople =
@@ -37,14 +37,21 @@ export default function DropdownSearch({ size, values }) {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
+  if (selectedBook) {
+    searchFunc(selectedBook);
+  }
+
+  console.log(selectedBook);
+
   return (
     <div className="m-10 w-200">
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox value={selectedBook} onChange={setSelectedBook}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 appearance-none focus:outline-none"
-              displayValue={(person) => person.name}
+              placeholder="Pesquisar livros"
+              displayValue={(person) => person}
               onChange={(event) => setQuery(event.target.value)}
             />
           </div>
@@ -69,7 +76,7 @@ export default function DropdownSearch({ size, values }) {
                         active ? "bg-teal-600 text-white" : "text-gray-900"
                       }`
                     }
-                    value={person}
+                    value={person.name}
                   >
                     {({ selected, active }) => (
                       <>

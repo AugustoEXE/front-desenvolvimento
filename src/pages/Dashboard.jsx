@@ -9,7 +9,6 @@ const Dashboard = () => {
   const userBooks = useGet(() => listBooks.userBookedBooks());
   console.log(userBooks);
   const currentUser = useGet(() => takeCurrentUser());
-  console.log(currentUser);
   const { name, id, admin, email } = currentUser;
 
   return (
@@ -44,7 +43,7 @@ const Dashboard = () => {
               {userBooks.map((e) => (
                 <div className="flex p-2 justify-center items-center border-black border rounded-md divide-x">
                   <div className="w-full px-1 flex items-center justify-center  border-gray-600">
-                    <img src={VITE_API_URL + "/" + e.cover} />
+                    <img src={VITE_API_URL + "/" + e.book.cover} />
                   </div>
                   <div className="w-full flex px-1 h-full items-center justify-center  border-gray-600">
                     <p className="w-25 break-words">{e.book.name}</p>

@@ -1,13 +1,22 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { DotsThreeOutlineVertical, SignOut } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutUser } from "../../services/users";
+import { useGet } from "../../hooks/useGet";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Dropdown({ size }) {
+  const [activate, setActivate] = useState();
+
+  if (activate == true) {
+    // useNavigate("/login");
+    logoutUser();
+  }
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -30,15 +39,17 @@ export default function Dropdown({ size }) {
             <Menu.Item>
               {({ active }) => (
                 <Link to={"/cad-book"}>
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-laranjinha-clarinho text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Cadastro de Livro
-                    </a>
+                  <a
+                    href="#"
+                    className={classNames(
+                      active
+                        ? "bg-laranjinha-clarinho text-gray-900"
+                        : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Cadastro de Livro
+                  </a>
                 </Link>
               )}
             </Menu.Item>
@@ -46,15 +57,17 @@ export default function Dropdown({ size }) {
             <Menu.Item>
               {({ active }) => (
                 <Link to={"/cad-user"}>
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-laranjinha-clarinho text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Cadastro de Usuário
-                    </a>
+                  <a
+                    href="#"
+                    className={classNames(
+                      active
+                        ? "bg-laranjinha-clarinho text-gray-900"
+                        : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Cadastro de Usuário
+                  </a>
                 </Link>
               )}
             </Menu.Item>
@@ -62,32 +75,35 @@ export default function Dropdown({ size }) {
             <Menu.Item>
               {({ active }) => (
                 <Link to={"/cad-author"}>
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-laranjinha-clarinho text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Cadastro de Autor
-                    </a>
+                  <a
+                    href="#"
+                    className={classNames(
+                      active
+                        ? "bg-laranjinha-clarinho text-gray-900"
+                        : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Cadastro de Autor
+                  </a>
                 </Link>
               )}
             </Menu.Item>
 
             <Menu.Item>
               {({ active }) => (
-                
                 <Link to={"/cad-genre"}>
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-laranjinha-clarinho text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Cadastro de Genero
-                    </a>
+                  <a
+                    href="#"
+                    className={classNames(
+                      active
+                        ? "bg-laranjinha-clarinho text-gray-900"
+                        : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Cadastro de Genero
+                  </a>
                 </Link>
               )}
             </Menu.Item>
@@ -95,29 +111,34 @@ export default function Dropdown({ size }) {
             <Menu.Item>
               {({ active }) => (
                 <Link to={"/cad-publish-company"}>
-                <a
-                  className={classNames(
-                    active ? "bg-laranjinha-clarinho text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Cadastro de Editora
-                </a>
-              </Link>
+                  <a
+                    className={classNames(
+                      active
+                        ? "bg-laranjinha-clarinho text-gray-900"
+                        : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    Cadastro de Editora
+                  </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link to={"/logout"}>
                 <a
                   className={classNames(
-                    active ? "bg-laranjinha-clarinho text-gray-900" : "text-gray-700",
+                    active
+                      ? "bg-laranjinha-clarinho text-gray-900"
+                      : "text-gray-700",
                     "block px-4 py-2 text-sm"
                   )}
                 >
-                  <span className="flex flex-row gap-2 text-center content-center justify-center text-red-500">Sign-out <SignOut size={22} weight="light" /></span>
+                  {active && setActivate(active)}
+                  <span className="flex flex-row gap-2 text-center content-center justify-center text-red-500">
+                    Sign-out <SignOut size={22} weight="light" />
+                  </span>
                 </a>
-              </Link>
               )}
             </Menu.Item>
           </div>

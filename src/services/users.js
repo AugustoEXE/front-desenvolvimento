@@ -22,6 +22,10 @@ export const takeCurrentUser = async () => {
   return await axios.get(`${API_URL}/user/take_one`);
 };
 
+export const logoutUser = async () => {
+  return await axios.get(`${API_URL}/user/clear/cookie`);
+};
+
 export const deleteUser = async (id) => {
   return await axios.delete(`${API_URL}/user/delete/${id}`);
 };

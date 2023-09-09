@@ -12,11 +12,14 @@ import ListofBook from "../components/global/Book";
 import { ListButtonFilter } from "../components/global/ListButtonFilter";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
   let listBooks = useGet(() => booksFromAPI.listBooks());
+  const filtredBooks = listBooks.filter((e) => e.name == search);
 
-  // console.log(search);
+  const handleBooksSearched = (childValue) => {
+    setSearch(childValue);
+  };
 
-  // console.log(foundBooks);
   return (
     <div>
       <Header />
@@ -28,7 +31,7 @@ const Home = () => {
           Pesquise por livros, autores, editoras, entre outras diversas
           categorias em nossa biblioteca virutal
         </p>
-        <DropdownSearch values={listBooks} />
+        <DropdownSearch values={listBooks} searchFunc={handleBooksSearched} />
         <ListButtonFilter />
       </div>
       <div className="w-full flex justify-center mt-4">
@@ -37,7 +40,9 @@ const Home = () => {
 
       <div className="w-full text-center flex content-center justify-center">
         <div className="grid grid-rows-4  grid-cols-3 gap-20">
-          <ListofBook books={listBooks} />
+          <ListofBook
+            books={filtredBooks.length > 0 ? filtredBooks : listBooks}
+          />
         </div>
       </div>
     </div>
